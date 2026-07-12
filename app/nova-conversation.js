@@ -1,4 +1,5 @@
 import {loadState,saveState} from './storage.js';
+import {renderVoiceControls,speakText,shouldAutoSpeak} from './voice.js';
 import {planFor,normalizedDate} from './data.js';
 
 const localDate=()=>{
@@ -165,6 +166,7 @@ export function renderNovaConversation(root){
    <div id="novaConversationMessages" class="nova-conversation-messages">
     ${history.length?history.map(m=>`<div class="conversation-message ${m.role}"><span>${m.role==='nova'?'N':'V'}</span><p>${esc(m.text)}</p></div>`).join(''):`<div class="conversation-message nova"><span>N</span><p>${esc(starterMessage(state))}</p></div>`}
    </div>
+   <div id="novaVoiceRoot"></div>
    <div class="nova-suggested-prompts">
     <button>Est-ce que je peux faire ma séance ?</button>
     <button>Comment est ma récupération ?</button>
@@ -195,7 +197,19 @@ export function renderNovaConversation(root){
    messages.insertAdjacentHTML('beforeend',`<div class="conversation-message user"><span>V</span><p>${esc(cleaned)}</p></div><div class="conversation-message nova"><span>N</span><p>${esc(answer)}</p></div>`);
    input.value='';
    scroll();
+   if(shouldAutoSpeak())speakText(answer);
   };
+
+  const getLastNovaMessage=()=>{
+   const latest=loadState();
+   const list=(latest.novaConversation||[]).filter(x=>x.role==='nova');
+   return list.length?list[list.length-1].text:starterMessage(latest);
+  };
+  renderVoiceControls(root.querySelector('#novaVoiceRoot'),{
+   onTranscript:text=>{input.value=text},
+   onSubmit:send,
+   getLastNovaMessage
+  });
 
   root.querySelector('#novaConversationForm').onsubmit=e=>{e.preventDefault();send(input.value)};
   root.querySelectorAll('.nova-suggested-prompts button').forEach(b=>b.onclick=()=>send(b.textContent));
