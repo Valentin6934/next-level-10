@@ -131,7 +131,7 @@ export function renderNovaDashboard(root){
    </div>
 
    <div class="nova-actions nova-actions-main">
-    <button class="primary nova-chat">PARLER AVEC NOVA</button>
+    <button class="primary nova-chat">OUVRIR NOVA</button>
     <button class="secondary nova-complete">COMPLÉTER MES DONNÉES</button>
     <button class="ghost-button nova-refresh">RÉANALYSER</button>
    </div>
@@ -150,7 +150,7 @@ export function renderNovaDashboard(root){
   </article>`;
 
   const panel=root.querySelector('.nova-chat-panel');
-  root.querySelector('.nova-chat').onclick=()=>panel.classList.remove('hidden');
+  root.querySelector('.nova-chat').onclick=()=>window.dispatchEvent(new CustomEvent('nl10:open-nova-chat'));
   root.querySelector('.nova-close').onclick=()=>panel.classList.add('hidden');
   root.querySelector('.nova-refresh').onclick=()=>renderNovaDashboard(root);
   root.querySelector('.nova-complete').onclick=()=>window.dispatchEvent(new CustomEvent('nl10:open-checkin'));

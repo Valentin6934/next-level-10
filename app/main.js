@@ -174,6 +174,19 @@ function bind(){document.querySelectorAll('#nav button').forEach(b=>b.onclick=()
 
 
 
+
+async function loadNovaConversation(){
+ const root=$('novaConversationRoot');
+ if(!root)return;
+ try{
+   const mod=await import('./nova-conversation.js');
+   mod.renderNovaConversation(root);
+ }catch(error){
+   console.error('Conversation NOVA indisponible:',error);
+   root.innerHTML='<div class="notice"><b class="warn">CONVERSATION NOVA INDISPONIBLE</b><p>Les autres fonctions restent disponibles.</p></div>';
+ }
+}
+
 async function loadNovaDashboard(){
  const root=$('novaDashboardRoot');if(!root)return;
  try{const mod=await import('./nova.js');mod.renderNovaDashboard(root)}catch(error){console.error('NOVA indisponible:',error);root.innerHTML='<div class="notice"><b class="warn">NOVA TEMPORAIREMENT INDISPONIBLE</b></div>'}
@@ -287,4 +300,11 @@ document.addEventListener('click',event=>{
   showProfilePanel(profileButton.dataset.profileTarget);
  }
  if(event.target.closest('#homeOpenCheckin'))openCheckinFromNova();
+});
+
+window.addEventListener('nl10:open-nova-chat',()=>{
+ try{showPage('nova-chat');loadNovaConversation()}catch(error){console.error(error)}
+});
+document.addEventListener('click',event=>{
+ if(event.target.closest('#closeNovaChatPage'))showPage('home');
 });
