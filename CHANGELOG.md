@@ -1,10 +1,13 @@
-# CHANGELOG — V3.5.1 Sprint 2.2
+# CHANGELOG — V3.5.2 Sprint 2.3
 
-- NOVA devient le premier élément de l’accueil.
-- Navigation : NOVA, Planning, Progression, Profil.
-- Accueil réduit aux quatre actions essentielles.
-- Cartes redondantes masquées sans casser les anciens modules.
-- Profil simplifié avec six raccourcis.
-- NOVA n’invente plus les données manquantes.
-- Score absent ou provisoire si les informations sont insuffisantes.
-- Responsive iPhone et animations harmonisés.
+## NOVA devient un coach conversationnel local
+- Nouvelle page de conversation dédiée.
+- Champ de texte libre.
+- Historique local des échanges.
+- Réponses basées sur les données réelles du joueur.
+- Compréhension locale des thèmes : séance, récupération, douleur, nutrition, progression, vidéo et lendemain.
+- NOVA signale clairement les données manquantes.
+- Mémoire synthétique des séances, tests, analyses vidéo et sommeil.
+- Suggestions de questions rapides.
+- Effacement volontaire de l’historique.
+- Aucun service d’IA externe ni clé API dans cette version.

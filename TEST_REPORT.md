@@ -1,15 +1,16 @@
-# TEST REPORT — V3.5.1 Sprint 2.2
+# TEST REPORT — V3.5.2 Sprint 2.3
 
 ## Automatique
-- Syntaxe JavaScript : OK.
-- Références DOM statiques : OK.
-- Service worker et manifeste versionnés : OK.
+- Syntaxe de tous les modules JavaScript : OK.
+- Nouveau module conversation ajouté au service worker : OK.
+- Version manifeste : OK.
 
 ## À tester sur iPhone
-- Les quatre onglets.
-- Les quatre raccourcis d’accueil.
-- Compléter mes données.
-- NOVA avec profil vide.
-- NOVA après saisie sommeil/fatigue.
-- Profil à 320 px et 390 px.
-- Séance, calendrier et import/export.
+- Ouvrir NOVA depuis l’accueil.
+- Envoyer une question libre.
+- Tester douleur, fatigue, séance et nutrition.
+- Recharger : historique conservé.
+- Effacer l’historique.
+- Vérifier que NOVA n’invente aucune donnée absente.
+- Tester retour vers l’accueil.
+- Tester 320 px et 390 px.

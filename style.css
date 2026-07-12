@@ -166,3 +166,17 @@ button{transition:transform .12s ease,border-color .2s ease,background .2s ease}
 @media(max-width:950px){.home-command-grid{grid-template-columns:repeat(2,1fr)}.profile-hub{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:650px){.nova-home-head{align-items:flex-start;flex-direction:column}.nova-ux-main{grid-template-columns:1fr}.home-today-strip{grid-template-columns:1fr}.home-mini-stats{display:grid;grid-template-columns:repeat(3,1fr)}.home-mini-stats span{min-width:0}.compact-tabs{display:none}}
 @media(max-width:390px){.home-command-grid,.profile-hub{grid-template-columns:1fr}.nova-home-head h1{font-size:38px}.nova-card{padding:17px}.home-command{min-height:76px}}
+
+/* V3.5.2 — Sprint 2.3 NOVA Coach */
+.nova-chat-page-head{align-items:center}
+.nova-conversation-shell{display:grid;grid-template-rows:auto minmax(360px,60vh) auto auto auto;gap:12px;max-width:980px;margin:auto}
+.nova-conversation-memory{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid rgba(199,255,53,.2);border-radius:16px;background:#0d100c}
+.nova-conversation-memory>div{display:flex;align-items:center;gap:10px}.nova-conversation-memory section b,.nova-conversation-memory section small{display:block}.nova-conversation-memory section small{color:#858b82}
+.nova-orb.small{width:42px;height:42px}.nova-orb.small span{font-size:16px}
+.nova-conversation-messages{overflow:auto;padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:radial-gradient(circle at 15% 0%,rgba(199,255,53,.07),transparent 28%),#080a08;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.conversation-message{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start;max-width:86%}.conversation-message>span{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-weight:1000;background:#1a2113;color:var(--lime)}.conversation-message p{margin:0;padding:11px 13px;border-radius:14px;background:#121612;border:1px solid rgba(255,255,255,.08);line-height:1.5}
+.conversation-message.user{align-self:flex-end;grid-template-columns:minmax(0,1fr) 34px}.conversation-message.user>span{grid-column:2;background:#202020;color:#fff}.conversation-message.user p{grid-row:1;grid-column:1;background:#181818}
+.nova-suggested-prompts{display:flex;gap:8px;flex-wrap:wrap}.nova-suggested-prompts button{border:1px solid rgba(255,255,255,.1);border-radius:999px;background:#101210;color:#fff;padding:9px 12px;font-size:12px}
+.nova-conversation-form{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end}.nova-conversation-form textarea{min-height:58px;resize:vertical}.nova-conversation-form button{height:58px}
+.nova-local-note{text-align:center;margin:0}
+@media(max-width:600px){.nova-conversation-shell{grid-template-rows:auto minmax(420px,62vh) auto auto auto}.conversation-message{max-width:94%}.nova-conversation-form{grid-template-columns:1fr}.nova-conversation-form button{height:48px}}
