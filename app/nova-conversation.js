@@ -1,6 +1,7 @@
 import {loadState,saveState} from './storage.js';
 import {renderVoiceControls,speakText,shouldAutoSpeak} from './voice.js';
 import {buildNovaMemory} from './nova-memory.js';
+import {displayName} from './player.js';
 import {planFor,normalizedDate} from './data.js';
 
 const localDate=()=>{
@@ -95,7 +96,7 @@ function responseFor(text,state){
  if(ctx.weather?.temp!==undefined)evidence.push(`${ctx.weather.temp} °C`);
 
  if(kind==='greeting'){
-  return `Salut Valentin. ${miss.length?`Il me manque encore ${miss.join(', ')} pour un conseil complet.`:`J’ai assez de données pour t’aider aujourd’hui.`}`;
+  return `Salut ${displayName(state.player)}. ${miss.length?`Il me manque encore ${miss.join(', ')} pour un conseil complet.`:`J’ai assez de données pour t’aider aujourd’hui.`}`;
  }
  if(kind==='pain'){
   if(!ctx.pain)return `Je n’ai aucune donnée douleur aujourd’hui. Ouvre Santé et indique la zone, l’intensité et les éventuels signaux comme gonflement, blocage ou instabilité.`;
@@ -150,8 +151,8 @@ function responseFor(text,state){
 
 function starterMessage(state){
  const ctx=todayContext(state),miss=missing(ctx);
- if(miss.length)return `Bonjour Valentin. Avant de te conseiller, il me manque : ${miss.join(', ')}.`;
- return `Bonjour Valentin. J’ai analysé tes données du jour. Pose-moi une question sur ta séance ou ta récupération.`;
+ if(miss.length)return `Bonjour ${displayName(state.player)}. Avant de te conseiller, il me manque : ${miss.join(', ')}.`;
+ return `Bonjour ${displayName(state.player)}. J’ai analysé tes données du jour. Pose-moi une question sur ta séance ou ta récupération.`;
 }
 
 export function renderNovaConversation(root){

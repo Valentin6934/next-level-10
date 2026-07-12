@@ -6,6 +6,8 @@ import {mealTypes,putPhoto,getPhoto,validateMeal,saveFoodReview} from './nutriti
 import * as notify from './notifications.js';
 import {calculateRatings,RATING_NAMES,ratingReason} from './ratings.js';
 import {buildTimerPlan,normalizePlan} from './timer.js';
+import {applyPlayerIdentity,renderOnboarding,renderPlayerSettings} from './player.js';
+import {renderReleaseNotice} from './release.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -25,7 +27,14 @@ const objectiveList=[
 ['CHANGE OF PACE','Après un geste réussi, accélère sur trois à cinq mètres.']
 ];
 function objective(){const w=Math.max(0,Math.floor((new Date(normalizedDate())-new Date('2026-07-23'))/(7*86400000)));return objectiveList[w%objectiveList.length]}
-function showPage(name){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$('page-'+name).classList.add('active');document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));scrollTo({top:0,behavior:'smooth'})}
+function showPage(name){
+ const target=$('page-'+name);
+ if(!target){console.warn('Page introuvable:',name);return}
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ target.classList.add('active');
+ document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));
+ try{scrollTo({top:0,behavior:'smooth'})}catch{scrollTo(0,0)}
+}
 function painLevel(state){const p=state.pain[today()]||{};if(p.swelling||p.instability||p.locking||+p.run>=5||p.trend==='Pire')return'high';if(+p.run>=2||+p.post>=2)return'mid';return'low'}
 
 function recentDates(count){const out=[];const d=new Date();for(let i=0;i<count;i++){out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()-1)}return out}
@@ -324,3 +333,23 @@ document.addEventListener('click',event=>{
 });
 
 window.addEventListener('nl10:session-video-completed',()=>{try{loadNovaMemory()}catch(e){console.error(e)}});
+
+function bootV1(){
+ try{
+  applyPlayerIdentity();
+  renderOnboarding($('onboardingRoot'));
+  renderPlayerSettings($('playerProfileSettings'));
+  renderReleaseNotice($('appUpdateRoot'));
+ }catch(error){
+  console.error('Initialisation V1:',error);
+ }
+}
+window.addEventListener('nl10:player-updated',()=>{
+ try{
+  applyPlayerIdentity();
+  renderPlayerSettings($('playerProfileSettings'));
+  loadNovaDashboard();
+  loadNovaConversation();
+ }catch(error){console.error(error)}
+});
+setTimeout(bootV1,0);
