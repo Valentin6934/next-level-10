@@ -1,11 +1,13 @@
-# CHANGELOG — V3.5.0 NOVA Dashboard
+# CHANGELOG — V3.5.2 Sprint 2.3
 
-- Carte NOVA premium.
-- Score de préparation sur 100.
-- Recommandations sommeil, fatigue, douleurs, nutrition, météo et charge.
-- Statut PRÊT / À ADAPTER / RÉCUPÉRER.
-- Premier panneau de conversation guidée.
-
-## Correctif V3.5.0a
-- Suppression du crash causé par l'ancien bouton `refreshCoach` absent du nouveau Dashboard NOVA.
-- Ancien rendu Coach rendu entièrement optionnel.
+## NOVA devient un coach conversationnel local
+- Nouvelle page de conversation dédiée.
+- Champ de texte libre.
+- Historique local des échanges.
+- Réponses basées sur les données réelles du joueur.
+- Compréhension locale des thèmes : séance, récupération, douleur, nutrition, progression, vidéo et lendemain.
+- NOVA signale clairement les données manquantes.
+- Mémoire synthétique des séances, tests, analyses vidéo et sommeil.
+- Suggestions de questions rapides.
+- Effacement volontaire de l’historique.
+- Aucun service d’IA externe ni clé API dans cette version.

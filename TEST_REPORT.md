@@ -1,9 +1,16 @@
-# TEST REPORT — V3.5.0
+# TEST REPORT — V3.5.2 Sprint 2.3
 
-- Syntaxe JavaScript vérifiée.
-- Module NOVA ajouté au service worker.
-- Tests iPhone à réaliser après preview Vercel.
+## Automatique
+- Syntaxe de tous les modules JavaScript : OK.
+- Nouveau module conversation ajouté au service worker : OK.
+- Version manifeste : OK.
 
-## Correctif V3.5.0a
-- Vérification syntaxique de `app/main.js` : OK.
-- Les références à l'ancienne carte Coach sont désormais protégées.
+## À tester sur iPhone
+- Ouvrir NOVA depuis l’accueil.
+- Envoyer une question libre.
+- Tester douleur, fatigue, séance et nutrition.
+- Recharger : historique conservé.
+- Effacer l’historique.
+- Vérifier que NOVA n’invente aucune donnée absente.
+- Tester retour vers l’accueil.
+- Tester 320 px et 390 px.
