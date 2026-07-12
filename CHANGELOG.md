@@ -1,13 +1,10 @@
-# CHANGELOG — V3.5.3 Sprint 2.4
+# CHANGELOG — V3.6.0 Sprint 2.5
 
-## Mode vocal bêta
-- Bouton micro dans la conversation NOVA.
-- Maintenir pour parler.
-- Transcription en français quand le navigateur le permet.
-- Envoi direct de la transcription à NOVA.
-- Lecture vocale de la dernière réponse.
-- Lecture automatique optionnelle.
-- Réglages : voix, vitesse, hauteur et activation.
-- Arrêt immédiat de la synthèse vocale.
-- Fonctionnement dégradé propre si Safari ne prend pas en charge la reconnaissance vocale.
-- Aucun audio envoyé à un serveur dans cette version.
+## NOVA Memory Engine
+- Mémoire synthétique sur 14 jours.
+- Tendances sommeil, fatigue, technique, concentration et régularité.
+- Détection simple des progrès et régressions.
+- Objectifs intelligents du jour, de la semaine et avant la reprise.
+- Dashboard mémoire dans Progression.
+- NOVA utilise ces tendances dans ses réponses sur la progression.
+- Aucune donnée inventée : une tendance exige des preuves enregistrées.
