@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<meta name="description" content="Next Level 10 — préparation individuelle U17 numéro 10.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<title>Next Level 10 — 3.4.7</title>
+</head>
+<body>
+<div class="splash" aria-hidden="true"><div class="splash-mark">10</div><strong>NEXT LEVEL 10</strong><span>Bienvenue Valentin</span></div>
+<div id="fatalError" class="fatal hidden"></div>
+
+<div class="app-shell">
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">10</div>
+      <div><strong>NEXT LEVEL 10</strong><span>VALENTIN • PREP MODE</span></div>
+    </div>
+    <nav id="nav">
+      <button class="active" data-page="home"><span>⌂</span><b>Accueil</b></button>
+      <button data-page="session"><span>▶</span><b>Séance</b></button>
+      <button data-page="progress"><span>↗</span><b>Progression</b></button>
+      <button data-page="profile"><span>◎</span><b>Profil</b></button>
+    </nav>
+    <div class="side-note">TRAIN • LEARN • RECOVER</div>
+  </aside>
+
+  <main>
+    <section id="page-home" class="page active">
+      <header class="hero premium-hero">
+        <div>
+          <div class="eyebrow">BONJOUR VALENTIN 👋</div>
+          <h1>Ton été. Ton niveau. Ton objectif.</h1>
+          <p>FC Domtac • N°10 • U17 • Objectif U18 R1</p>
+        </div>
+        <span id="homeDate" class="pill"></span>
+      </header>
+
+      <div class="home-showcase">
+        <article class="identity-card">
+          <div class="identity-card__shine"></div>
+          <div class="identity-top"><span>MOC</span><span>FC DOMTAC</span></div>
+          <div class="identity-rating"><strong id="overallRating">50</strong><small>NOTE</small></div>
+          <div class="identity-silhouette">V</div>
+          <div class="identity-name">VALENTIN</div>
+          <div class="identity-meta"><span>16 ANS</span><span>DROITIER</span><span>1M68</span></div>
+        </article>
+        <div class="dashboard-stack">
+          <div class="metrics premium-metrics">
+            <article><small>XP TOTAL</small><strong id="homeXp">0</strong><span>Progression</span></article>
+            <article><small>SÉANCES</small><strong id="homeSessions">0</strong><span>Validées</span></article>
+            <article><small>RÉCUPÉRATION</small><strong id="recoveryStatus">—</strong><span>État du jour</span></article>
+          </div>
+          <article class="target-card">
+            <div><span class="eyebrow">OBJECTIF</span><h2>U18 R1</h2><p>Construire un numéro 10 plus juste, plus explosif et plus fiable.</p></div>
+            <div class="target-ring"><span>R1</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="grid two gap">
+        <article class="panel feature">
+          <div class="eyebrow">AUJOURD’HUI</div>
+          <h2 id="homeSessionTitle"></h2>
+          <p id="homeSessionSummary"></p>
+          <div id="homeObjective" class="objective"></div>
+          <button class="primary" data-open-page="session">COMMENCER</button>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">ÉTAT DE PRÉPARATION</div>
+          <div id="homeReadiness" class="notice"></div>
+          <div id="dailyChecklist" class="checklist"></div>
+      <div id="dayCompletionBar" class="day-completion-bar"></div>
+        </article>
+      </div>
+
+      <div id="dailyChallengeRoot" class="gap"></div>
+
+      <article class="panel gap coach-card">
+        <div class="actions between">
+          <div><div class="eyebrow">COACH DU JOUR</div><h2 id="coachHeadline"></h2></div>
+          <span id="coachStatus" class="pill"></span>
+        </div>
+        <p id="coachMessage"></p>
+        <div id="coachAdjustments" class="coach-adjustments"></div>
+        <button id="refreshCoach" class="secondary">RÉANALYSER MA JOURNÉE</button>
+      </article>
+
+      <div id="smartPlanningHome"></div>
+
+      <div class="grid two gap">
+        <article class="panel">
+          <div class="eyebrow">MÉTÉO</div>
+          <div class="fields">
+            <label>Température<input id="weatherTemp" type="number" value="24"></label>
+            <label>Humidité<input id="weatherHumidity" type="number" value="50"></label>
+          </div>
+          <div id="weatherAdvice" class="notice"></div>
+          <button id="weatherLocation" class="secondary">UTILISER MA POSITION</button>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">MA JOURNÉE</div>
+          <div id="homeTimeline" class="mini-timeline"></div>
+          <div class="actions"><button id="openDayPlanner" class="secondary">EMPLOI DU TEMPS</button><button id="openCalendar" class="primary">CALENDRIER</button></div>
+        </article>
+      </div>
+    </section>
+
+
+    <section id="page-calendar" class="page">
+      <header class="page-head calendar-head">
+        <div><div class="eyebrow">PRÉPARATION ESTIVALE</div><h1>Calendrier intelligent</h1><p>Toute ta préparation du 23 juillet au 6 septembre, avec le détail de chaque journée.</p></div>
+        <button id="calendarBack" class="secondary">RETOUR</button>
+      </header>
+
+      <div class="calendar-kpis">
+        <article><small>PRÉPARATION</small><strong id="calendarProgressValue">0 %</strong><div class="calendar-progress"><i id="calendarProgressBar"></i></div></article>
+        <article><small>JOURS RESTANTS</small><strong id="calendarDaysLeft">0</strong><span>avant la reprise</span></article>
+        <article><small>SÉANCES RESTANTES</small><strong id="calendarSessionsLeft">0</strong><span>hors jours de repos</span></article>
+        <article><small>SÉRIE</small><strong>🔥 <span id="calendarStreak">0</span></strong><span>jours complets</span></article>
+      </div>
+
+      <article class="panel gap calendar-shell">
+        <div class="calendar-toolbar">
+          <button id="calendarPrev" class="calendar-arrow" aria-label="Mois précédent">‹</button>
+          <div><div class="eyebrow">MOIS</div><h2 id="calendarMonthLabel"></h2></div>
+          <button id="calendarNext" class="calendar-arrow" aria-label="Mois suivant">›</button>
+        </div>
+        <div class="calendar-legend">
+          <span><i class="legend-training"></i>Entraînement</span>
+          <span><i class="legend-next"></i>Prochaine journée</span>
+          <span><i class="legend-recovery"></i>Récupération</span>
+          <span><i class="legend-match"></i>Match</span>
+          <span><i class="legend-test"></i>Tests</span>
+          <span><i class="legend-rest"></i>Repos</span>
+          <span class="legend-check">✓ Terminé</span>
+        </div>
+        <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </article>
+
+      <article id="calendarDetail" class="panel gap calendar-detail"></article>
+    </section>
+
+    <section id="page-session" class="page">
+      <header class="page-head">
+        <div><div class="eyebrow">SÉANCE IMMERSIVE</div><h1 id="sessionDate"></h1></div>
+        <span id="sessionDuration" class="pill"></span>
+      </header>
+      <div id="sessionAdapt"></div>
+      <div id="sessionTestNotice"></div>
+      <div id="sessionObjective"></div>
+      <div id="sessionSetup"></div>
+      <div id="sessionOverview"></div>
+      <div id="sessionRunner" class="hidden"></div>
+      <div id="sessionEvaluation" class="hidden"></div>
+      <div id="sessionVideoStep" class="hidden"></div>
+      <div id="postSessionCoach" class="hidden"></div>
+    </section>
+
+    <section id="page-progress" class="page">
+      <header class="page-head">
+        <div><div class="eyebrow">PROGRESSION RÉELLE</div><h1>Ton profil de joueur</h1><p>Les notes évoluent uniquement avec des preuves : régularité, tests, qualité du suivi et récupération.</p></div>
+        <span id="ratingConfidence" class="pill"></span>
+      </header>
+      <div id="careerStableRoot"></div>
+      <div id="performanceCenterRoot" class="gap"></div>
+      <div id="playerCard" class="player-card"></div>
+      <div id="ratingsGrid" class="ratings-grid gap"></div>
+      <div class="grid two gap">
+        <article class="panel">
+          <div class="eyebrow">SEMAINE EN COURS</div>
+          <div id="weekSummary"></div>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">CE QUI FAIT MONTER LES NOTES</div>
+          <div id="ratingRules"></div>
+        </article>
+      </div>
+      <article class="panel gap">
+        <div class="eyebrow">TESTS DE PRÉPARATION</div>
+        <div class="fields">
+          <label>Phase<select id="testPhase"><option>Début</option><option>Milieu</option><option>Fin</option></select></label>
+          <label>Date<input id="testDate" type="date"></label>
+          <label>Test<select id="testName"><option>Sprint 10 m</option><option>Jongles pied droit</option><option>Jongles pied gauche</option><option>Précision de passe /20</option><option>Slalom chronométré</option><option>Ressenti course Domtac /10</option></select></label>
+          <label>Résultat<input id="testValue" type="number" step=".01"></label>
+          <label>Unité<input id="testUnit" placeholder="s, touches, /20"></label>
+          <label>Conditions<input id="testConditions" placeholder="terrain, météo, fatigue"></label>
+        </div>
+        <button id="saveTest" class="primary">ENREGISTRER LE TEST</button>
+        <div id="testsHistory" class="gap"></div>
+      </article>
+    </section>
+
+    <section id="page-profile" class="page">
+      <header class="page-head">
+        <div><div class="eyebrow">PROFIL</div><h1>Tout ce qui soutient ta progression</h1></div>
+      </header>
+      <div class="profile-tabs" id="profileTabs">
+        <button class="active" data-panel="day">Ma journée</button>
+        <button data-panel="nutrition">Nutrition</button>
+        <button data-panel="tracking">Suivi</button>
+        <button data-panel="video">Vidéo</button>
+        <button data-panel="pain">Douleurs</button>
+        <button data-panel="settings">Réglages</button>
+      </div>
+
+      <section id="profile-day" class="profile-panel active">
+        <div class="actions between">
+          <div><div class="eyebrow">EMPLOI DU TEMPS</div><h2>Journée complète</h2></div>
+          <div class="actions"><button id="openCalendarFromProfile" class="secondary">CALENDRIER</button><button id="rebuildDay" class="secondary">RÉADAPTER À LA MÉTÉO</button></div>
+        </div>
+        <div id="smartPlanningRoot"></div>
+        <div id="dayNotice"></div>
+        <article class="panel"><div id="timeline" class="timeline"></div></article>
+        <article class="panel gap"><div class="eyebrow">MENU DU JOUR</div><div id="dayMenu"></div></article>
+      </section>
+
+      <section id="profile-nutrition" class="profile-panel">
+        <div class="actions between">
+          <div><div class="eyebrow">NUTRITION</div><h2>Journal alimentaire</h2></div>
+          <span class="pill"><span id="nutritionXp">0</span> XP</span>
+        </div>
+        <div id="nutritionMetrics" class="metrics"></div>
+        <div id="mealCards" class="meal-grid gap"></div>
+        <article class="panel gap">
+          <div class="fields">
+            <label>Énergie /10<input id="foodEnergy" type="number"></label>
+            <label>Digestion /10<input id="foodDigestion" type="number"></label>
+            <label>Faim /10<input id="foodHunger" type="number"></label>
+            <label>Eau (L)<input id="foodWater" type="number" step=".25"></label>
+          </div>
+          <label>Remarque<textarea id="foodNotes"></textarea></label>
+          <button id="saveFoodReview" class="primary">ENREGISTRER</button>
+        </article>
+      </section>
+
+      <section id="profile-tracking" class="profile-panel">
+        <div class="grid two">
+          <article class="panel">
+            <div class="eyebrow">CHECK-IN</div>
+            <div class="fields">
+              <label>Sommeil (h)<input id="trackSleep" type="number" step=".25"></label>
+              <label>Qualité /10<input id="trackSleepQ" type="number"></label>
+              <label>Fatigue /10<input id="trackFatigue" type="number"></label>
+              <label>Motivation /10<input id="trackMotivation" type="number"></label>
+              <label>Genou /10<input id="trackKnee" type="number"></label>
+              <label>Courbatures /10<input id="trackSoreness" type="number"></label>
+              <label>RPE /10<input id="trackRpe" type="number"></label>
+              <label>Durée (min)<input id="trackMinutes" type="number"></label>
+            </div>
+            <label>Notes<textarea id="trackNotes"></textarea></label>
+            <button id="saveTracking" class="primary">ENREGISTRER</button>
+          </article>
+          <article class="panel">
+            <div class="eyebrow">DÉBRIEF</div>
+            <label>Ce qui a été bien<textarea id="reviewGood"></textarea></label>
+            <label>Ce qui a été difficile<textarea id="reviewBad"></textarea></label>
+            <label>Priorité suivante<input id="reviewPriority"></label>
+            <div class="fields">
+              <label>Technique /10<input id="reviewTech" type="number"></label>
+              <label>Concentration /10<input id="reviewFocus" type="number"></label>
+              <label>Douleur /10<input id="reviewPain" type="number"></label>
+              <label>Fierté /10<input id="reviewPride" type="number"></label>
+            </div>
+            <button id="saveReview" class="primary">ENREGISTRER</button>
+          </article>
+        </div>
+        <article class="panel gap"><div id="trackingHistory"></div></article>
+      </section>
+
+
+      <section id="profile-video" class="profile-panel">
+        <div id="videoAnalysisRoot">
+          <div class="notice"><b>CHARGEMENT DE L’ANALYSE VIDÉO</b></div>
+        </div>
+      </section>
+
+      <section id="profile-pain" class="profile-panel">
+        <div class="grid two">
+          <article class="panel">
+            <div class="eyebrow">DOULEUR PRÉCISE</div>
+            <label>Zone<select id="painZone"><option value="">Aucune</option><option>Devant du genou</option><option>Côté interne du genou</option><option>Côté externe du genou</option><option>Derrière le genou</option><option>Tendon rotulien</option><option>Cheville</option><option>Adducteurs</option><option>Ischios</option><option>Mollet</option></select></label>
+            <div class="fields">
+              <label>Au repos /10<input id="painRest" type="number"></label>
+              <label>En courant /10<input id="painRun" type="number"></label>
+              <label>Escaliers /10<input id="painStairs" type="number"></label>
+              <label>Après séance /10<input id="painPost" type="number"></label>
+            </div>
+            <label class="check"><input id="painSwelling" type="checkbox">Gonflement</label>
+            <label class="check"><input id="painInstability" type="checkbox">Instabilité</label>
+            <label class="check"><input id="painLocking" type="checkbox">Blocage</label>
+            <label>Évolution<select id="painTrend"><option>Stable</option><option>Meilleure</option><option>Pire</option></select></label>
+            <button id="savePain" class="primary">ENREGISTRER</button>
+          </article>
+          <article class="panel"><div class="eyebrow">DÉCISION</div><div id="painDecision" class="notice"></div></article>
+        </div>
+      </section>
+
+      <section id="profile-settings" class="profile-panel">
+        <div class="grid two">
+          <article class="panel">
+            <div class="eyebrow">NOTIFICATIONS</div>
+            <div id="notificationStatus" class="notice"></div>
+            <label class="check"><input id="notifyTraining" type="checkbox">Séance</label>
+            <label class="check"><input id="notifyMeals" type="checkbox">Repas</label>
+            <label class="check"><input id="notifySleep" type="checkbox">Routine du soir</label>
+            <label>Prévenir avant<select id="notifyLead"><option value="0">À l’heure</option><option value="10">10 min</option><option value="20">20 min</option><option value="30">30 min</option><option value="60">1 h</option></select></label>
+            <div class="actions"><button id="enableNotifications" class="primary">ACTIVER</button><button id="saveNotifications" class="secondary">ENREGISTRER</button><button id="testNotifications" class="secondary">TESTER</button></div>
+          </article>
+          <article class="panel">
+            <div class="eyebrow">SAUVEGARDE</div>
+            <div class="actions"><button id="exportData" class="secondary">EXPORTER</button><label class="secondary file">IMPORTER<input id="importData" type="file" accept=".json"></label><button id="resetData" class="danger">EFFACER</button></div>
+            <h3>Coach</h3>
+            <textarea id="coachText"></textarea>
+            <div class="actions"><button id="buildCoach" class="primary">GÉNÉRER</button><button id="copyCoach" class="secondary">COPIER</button></div>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script type="module" src="app/main.js"></script>
+</body>
+</html>
