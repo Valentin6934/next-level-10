@@ -1,7 +1,7 @@
 {
-  "name": "Next Level 10 3.5.2",
-  "short_name": "NL10 3.5.2",
-  "start_url": "./index.html",
+  "name": "Next Level 10",
+  "short_name": "NextLevel10",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#050505",
@@ -12,5 +12,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "description": "Coach personnel de football avec NOVA accessible partout."
 }

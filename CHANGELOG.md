@@ -1,13 +1,18 @@
-# CHANGELOG — V3.5.2 Sprint 2.3
+# CHANGELOG — Next Level 10 V1.1.0
 
-## NOVA devient un coach conversationnel local
-- Nouvelle page de conversation dédiée.
-- Champ de texte libre.
-- Historique local des échanges.
-- Réponses basées sur les données réelles du joueur.
-- Compréhension locale des thèmes : séance, récupération, douleur, nutrition, progression, vidéo et lendemain.
-- NOVA signale clairement les données manquantes.
-- Mémoire synthétique des séances, tests, analyses vidéo et sommeil.
-- Suggestions de questions rapides.
-- Effacement volontaire de l’historique.
-- Aucun service d’IA externe ni clé API dans cette version.
+## NOVA Hub
+- Bouton NOVA flottant visible dans toute l’application.
+- Tiroir global avec état du jour et raccourcis.
+- Accès direct à la conversation, la séance, le planning et le profil.
+- Check-in rapide : sommeil, fatigue, motivation et douleur.
+- Réanalyse automatique après le check-in.
+
+## UX
+- Mode essentiel activé par défaut.
+- Blocs secondaires masqués sans supprimer les fonctions.
+- Réglage disponible dans Profil > Réglages.
+- Interface mobile renforcée.
+
+## Données
+- Aucune migration destructive.
+- Compatibilité avec les données V1.0.

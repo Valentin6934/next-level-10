@@ -1,16 +1,18 @@
-# TEST REPORT — V3.5.2 Sprint 2.3
+# TEST REPORT — V1.1.0
 
-## Automatique
-- Syntaxe de tous les modules JavaScript : OK.
-- Nouveau module conversation ajouté au service worker : OK.
-- Version manifeste : OK.
+## Vérifications automatiques
+- Syntaxe de tous les modules JavaScript.
+- Module NOVA Hub inclus dans le service worker.
+- Manifest PWA valide.
+- Références HTML de `main.js`.
+- Création du ZIP GitHub et de la sauvegarde complète.
 
-## À tester sur iPhone
-- Ouvrir NOVA depuis l’accueil.
-- Envoyer une question libre.
-- Tester douleur, fatigue, séance et nutrition.
-- Recharger : historique conservé.
-- Effacer l’historique.
-- Vérifier que NOVA n’invente aucune donnée absente.
-- Tester retour vers l’accueil.
-- Tester 320 px et 390 px.
+## Recette iPhone
+1. Vérifier que les données V1.0 sont conservées.
+2. Ouvrir le bouton NOVA depuis chaque onglet.
+3. Tester les quatre raccourcis du tiroir.
+4. Enregistrer un check-in rapide.
+5. Vérifier la mise à jour du Dashboard NOVA.
+6. Activer puis désactiver le mode essentiel.
+7. Tester séance, planning, progression et profil.
+8. Fermer puis rouvrir la PWA.
