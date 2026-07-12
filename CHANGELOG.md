@@ -1,13 +1,13 @@
-# CHANGELOG — V3.5.2 Sprint 2.3
+# CHANGELOG — V3.5.3 Sprint 2.4
 
-## NOVA devient un coach conversationnel local
-- Nouvelle page de conversation dédiée.
-- Champ de texte libre.
-- Historique local des échanges.
-- Réponses basées sur les données réelles du joueur.
-- Compréhension locale des thèmes : séance, récupération, douleur, nutrition, progression, vidéo et lendemain.
-- NOVA signale clairement les données manquantes.
-- Mémoire synthétique des séances, tests, analyses vidéo et sommeil.
-- Suggestions de questions rapides.
-- Effacement volontaire de l’historique.
-- Aucun service d’IA externe ni clé API dans cette version.
+## Mode vocal bêta
+- Bouton micro dans la conversation NOVA.
+- Maintenir pour parler.
+- Transcription en français quand le navigateur le permet.
+- Envoi direct de la transcription à NOVA.
+- Lecture vocale de la dernière réponse.
+- Lecture automatique optionnelle.
+- Réglages : voix, vitesse, hauteur et activation.
+- Arrêt immédiat de la synthèse vocale.
+- Fonctionnement dégradé propre si Safari ne prend pas en charge la reconnaissance vocale.
+- Aucun audio envoyé à un serveur dans cette version.

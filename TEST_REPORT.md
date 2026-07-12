@@ -1,16 +1,16 @@
-# TEST REPORT — V3.5.2 Sprint 2.3
+# TEST REPORT — V3.5.3 Sprint 2.4
 
 ## Automatique
 - Syntaxe de tous les modules JavaScript : OK.
-- Nouveau module conversation ajouté au service worker : OK.
-- Version manifeste : OK.
+- Module vocal ajouté au service worker : OK.
+- Manifest versionné : OK.
 
 ## À tester sur iPhone
-- Ouvrir NOVA depuis l’accueil.
-- Envoyer une question libre.
-- Tester douleur, fatigue, séance et nutrition.
-- Recharger : historique conservé.
-- Effacer l’historique.
-- Vérifier que NOVA n’invente aucune donnée absente.
-- Tester retour vers l’accueil.
-- Tester 320 px et 390 px.
+- Autorisation du micro.
+- Maintenir pour parler.
+- Vérifier la transcription.
+- Envoyer la transcription.
+- Lire la dernière réponse de NOVA.
+- Activer/désactiver la lecture automatique.
+- Tester après rechargement.
+- Vérifier le fallback texte si le micro n’est pas disponible.
