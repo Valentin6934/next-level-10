@@ -1,17 +1,18 @@
-# CHANGELOG — Next Level 10 V1.0.0
+# CHANGELOG — Next Level 10 V1.1.0
 
-## Première version produit
-- Onboarding joueur personnalisable.
-- Profil modifiable dans Réglages.
-- Identité dynamique dans l’interface et NOVA.
-- Schéma de données versionné avec migration automatique.
-- Export JSON enrichi et import rétrocompatible.
-- Navigation renforcée contre les pages introuvables.
-- Carte de version et statut local-first.
-- Documentation Vision, Architecture et Confidentialité.
-- Toutes les fonctions historiques sont conservées.
+## NOVA Hub
+- Bouton NOVA flottant visible dans toute l’application.
+- Tiroir global avec état du jour et raccourcis.
+- Accès direct à la conversation, la séance, le planning et le profil.
+- Check-in rapide : sommeil, fatigue, motivation et douleur.
+- Réanalyse automatique après le check-in.
 
-## Limites assumées
-- NOVA reste local et basé sur des règles.
-- Pas de compte ni synchronisation cloud.
-- Pas encore d’analyse vidéo IA serveur.
+## UX
+- Mode essentiel activé par défaut.
+- Blocs secondaires masqués sans supprimer les fonctions.
+- Réglage disponible dans Profil > Réglages.
+- Interface mobile renforcée.
+
+## Données
+- Aucune migration destructive.
+- Compatibilité avec les données V1.0.

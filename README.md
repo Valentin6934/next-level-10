@@ -1,23 +1,18 @@
-# Next Level 10 — V1.0
+# Next Level 10 — V1.1
 
 PWA de coaching football personnalisée autour de NOVA.
 
-## Installation
-Le projet est statique. Publier la racine sur Vercel, Cloudflare Pages ou GitHub Pages.
+## Nouveautés V1.1
+- NOVA accessible depuis toutes les pages avec un bouton flottant ;
+- résumé contextuel du jour ;
+- accès rapide à la séance, au planning et à la conversation ;
+- check-in rapide sans chercher dans les menus ;
+- mode essentiel pour masquer les blocs secondaires ;
+- profil et données V1.0 conservés.
 
-## Développement
-- branche `main` : production ;
-- branche `develop` : prévisualisation ;
-- aucun framework ni étape de build.
+## Déploiement
+Projet statique sans commande de build. Publier la racine sur Vercel.
 
-## V1
-- profil personnalisable et onboarding ;
-- séances immersives ;
-- planning intelligent ;
-- nutrition et récupération ;
-- analyse vidéo guidée ;
-- progression, tests et mode carrière ;
-- NOVA local, mémoire et voix ;
-- migration automatique des anciennes données.
-
-Voir `docs/ARCHITECTURE.md`, `docs/VISION.md` et `docs/PRIVACY.md`.
+## Branches
+- `main` : production ;
+- `develop` : prévisualisation.

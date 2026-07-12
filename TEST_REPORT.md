@@ -1,20 +1,18 @@
-# TEST REPORT — V1.0.0
+# TEST REPORT — V1.1.0
 
 ## Vérifications automatiques
 - Syntaxe de tous les modules JavaScript.
-- Présence des modules V1 dans le service worker.
+- Module NOVA Hub inclus dans le service worker.
 - Manifest PWA valide.
-- Identifiants HTML utilisés par `main.js`.
-- ZIP GitHub et sauvegarde complète.
+- Références HTML de `main.js`.
+- Création du ZIP GitHub et de la sauvegarde complète.
 
-## Recette iPhone obligatoire
-1. Ouvrir avec les anciennes données.
-2. Vérifier la migration sans perte.
-3. Terminer l’onboarding.
-4. Modifier le profil dans Réglages.
-5. Vérifier le prénom dans l’accueil et NOVA.
-6. Tester les quatre onglets.
+## Recette iPhone
+1. Vérifier que les données V1.0 sont conservées.
+2. Ouvrir le bouton NOVA depuis chaque onglet.
+3. Tester les quatre raccourcis du tiroir.
+4. Enregistrer un check-in rapide.
+5. Vérifier la mise à jour du Dashboard NOVA.
+6. Activer puis désactiver le mode essentiel.
 7. Tester séance, planning, progression et profil.
-8. Tester conversation et voix.
-9. Exporter puis réimporter les données.
-10. Fermer et rouvrir la PWA.
+8. Fermer puis rouvrir la PWA.

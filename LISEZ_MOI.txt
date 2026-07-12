@@ -1,9 +1,18 @@
-NEXT LEVEL 10 — V1.0.0
+NEXT LEVEL 10 — V1.1.0
 
-Pour GitHub :
-- remplace les fichiers présents dans le pack GitHub ;
-- ajoute `app/player.js`, `app/release.js` et le dossier `docs`;
-- commit sur `develop`;
-- teste l’URL Preview Vercel avant de fusionner dans `main`.
+Ajoute les fichiers du pack sur la branche develop.
+Teste la Preview Vercel avant de fusionner dans main.
 
-La V1 ne connecte pas encore une IA serveur. NOVA reste local et transparent.
+Nouveaux fichiers :
+- app/nova-hub.js
+
+Fichiers remplacés :
+- index.html
+- style.css
+- app/main.js
+- app/release.js
+- sw.js
+- manifest.webmanifest
+- README.md
+- CHANGELOG.md
+- TEST_REPORT.md
