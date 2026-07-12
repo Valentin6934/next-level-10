@@ -53,12 +53,14 @@ function coachAnalysis(){
  return{level,headline,message,actions:actions.slice(0,6),load3,load7,plan};
 }
 function renderCoach(){
+ const headline=$('coachHeadline'),status=$('coachStatus'),message=$('coachMessage'),adjustments=$('coachAdjustments');
+ if(!headline||!status||!message||!adjustments)return;
  const a=coachAnalysis();
- $('coachHeadline').textContent=a.headline;
- $('coachStatus').textContent=a.level;
- $('coachStatus').className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':'bad');
- $('coachMessage').textContent=a.message;
- $('coachAdjustments').innerHTML=a.actions.map(x=>`<div class="coach-adjustment"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+ headline.textContent=a.headline;
+ status.textContent=a.level;
+ status.className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':'bad');
+ message.textContent=a.message;
+ adjustments.innerHTML=a.actions.map(x=>`<div class="coach-adjustment"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
 }
 function postSessionCoachMessage(){
  const s=loadState(),r=s.reviews[today()]||{},c=s.checkins[today()]||{},lines=[];
@@ -85,7 +87,7 @@ const mealsDone=Object.values((s.nutrition[today()]||{}).meals||{}).filter(x=>x.
 const completeCount=[terrainDone,reviewDone,videoDone,mealsDone].filter(Boolean).length;
 $('dayCompletionBar').innerHTML=`<div class="day-completion-head"><span>Journée complète</span><strong>${completeCount}/4</strong></div><div class="day-completion-track"><i style="width:${completeCount/4*100}%"></i></div>`;
 
-renderWeather();renderCoach()}
+renderWeather();renderCoach();loadNovaDashboard()}
 function renderWeather(){const s=loadState(),a=advice(s.weather.temp,s.weather.humidity);$('weatherTemp').value=s.weather.temp;$('weatherHumidity').value=s.weather.humidity;$('weatherAdvice').innerHTML=`<b class="${a.level==='green'?'ok':a.level==='orange'?'warn':'bad'}">${a.title}</b><p>${a.text}</p>`}
 
 let calendarView=new Date(normalizedDate()+'T12:00:00');
@@ -149,6 +151,7 @@ function renderProgress(){setTimeout(loadCareerStable,0);setTimeout(loadPerforma
 setTimeout(loadDailyChallenge,0);
 setTimeout(loadVideoAnalysis,0);
 setTimeout(loadSmartPlanning,0);
+setTimeout(loadNovaDashboard,0);
 setTimeout(loadPerformanceCenter,0);const s=loadState(),r=calculateRatings(s);$('ratingConfidence').textContent=`Confiance ${r.confidence} • ${r.evidence} preuves`;$('playerCard').innerHTML=`<div class="overall-badge"><div><strong>${r.overall}</strong><span>N°10</span></div></div><div><div class="eyebrow">PROFIL RÉEL</div><h2>Milieu offensif droitier</h2><p class="muted">Les notes ne montent pas avec les XP seuls. Elles utilisent tes tests, ta régularité, tes débriefs, ton sommeil et ta nutrition.</p></div>`;$('ratingsGrid').innerHTML=RATING_NAMES.map(([k,n])=>`<div class="rating-card"><div class="rating-top"><b>${n}</b><strong>${r.ratings[k]}</strong></div><div class="rating-bar"><i style="width:${r.ratings[k]}%"></i></div><small>${ratingReason(k,s)}</small></div>`).join('');const start=new Date(normalizedDate()+'T12:00:00'),day=(start.getDay()+6)%7;start.setDate(start.getDate()-day);const dates=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d.toISOString().slice(0,10)}),load=dates.reduce((a,d)=>{const c=s.checkins[d]||{};return a+(+c.rpe||0)*(+c.minutes||0)},0);$('weekSummary').innerHTML=`<div class="facts"><div class="fact"><b>SÉANCES</b>${dates.filter(d=>s.done[d]).length}/7</div><div class="fact"><b>CHARGE</b>${load}</div><div class="fact"><b>CHECK-INS</b>${dates.filter(d=>s.checkins[d]).length}</div><div class="fact"><b>OBJECTIF</b>${objective()[0]}</div></div>`;$('ratingRules').innerHTML='<ul><li>Les tests donnent les preuves les plus fortes.</li><li>Les séances et débriefs renforcent la confiance des notes.</li><li>Le sommeil et l’alimentation influencent surtout récupération et discipline.</li><li>Une semaine manquée ne fait pas chuter brutalement les notes.</li></ul>';renderTests()}
 function renderTests(){const s=loadState(),scheduled=TEST_DAYS[normalizedDate()];$('testDate').value=today();if(scheduled)$('testPhase').value=scheduled.phase;$('testsHistory').innerHTML=(s.tests||[]).slice().reverse().map(t=>`<div class="test-row"><b>${t.phase} — ${t.name}</b><p>${t.date} • ${t.value} ${t.unit||''}</p><small>${t.conditions||''}</small></div>`).join('')||'<p class="muted">Aucun test enregistré.</p>'}
 function renderDay(){
@@ -163,12 +166,18 @@ function renderPain(){const s=loadState(),p=s.pain[today()]||{};[['painZone','zo
 function showProfilePanel(name){document.querySelectorAll('.profile-panel').forEach(x=>x.classList.remove('active'));$('profile-'+name).classList.add('active');document.querySelectorAll('#profileTabs button').forEach(x=>x.classList.toggle('active',x.dataset.panel===name))}
 function renderNotifications(){const s=loadState(),n=s.notifications;$('notifyTraining').checked=n.training;$('notifyMeals').checked=n.meals;$('notifySleep').checked=n.sleep;$('notifyLead').value=n.lead;$('notificationStatus').innerHTML=!notify.supported()?'<b class="warn">NON DISPONIBLE</b>':Notification.permission==='granted'?'<b class="ok">AUTORISÉES</b>':'<b class="warn">À ACTIVER</b>'}
 function buildCoach(){const s=loadState(),c=s.checkins[today()]||{},r=s.reviews[today()]||{},p=adaptedPlan(),rr=calculateRatings(s);$('coachText').value=`Bilan joueur — ${fr(today())}\nSéance : ${p.title}\nNote générale : ${rr.overall}\nSommeil : ${c.sleep||'—'} h\nFatigue : ${c.fatigue||'—'}/10\nGenou : ${c.knee||0}/10\nRéussi : ${r.good||'—'}\nDifficulté : ${r.bad||'—'}\nPriorité : ${r.priority||'—'}\n\nAdapte la prochaine séance avec prudence.`}
-function bind(){document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('[data-open-page]').forEach(b=>b.onclick=()=>showPage(b.dataset.openPage));document.querySelectorAll('#profileTabs button').forEach(b=>b.onclick=()=>showProfilePanel(b.dataset.panel));$('openDayPlanner').onclick=()=>{showPage('profile');showProfilePanel('day')};$('openCalendar').onclick=()=>openCalendar();$('openCalendarFromProfile').onclick=()=>openCalendar();$('calendarBack').onclick=()=>showPage('home');$('calendarPrev').onclick=()=>{calendarView.setMonth(calendarView.getMonth()-1);renderCalendar()};$('calendarNext').onclick=()=>{calendarView.setMonth(calendarView.getMonth()+1);renderCalendar()};$('refreshCoach').onclick=()=>{renderCoach();toast('Analyse mise à jour')};$('weatherTemp').onchange=$('weatherHumidity').onchange=()=>{const s=loadState();s.weather={temp:+$('weatherTemp').value,humidity:+$('weatherHumidity').value};saveState(s);renderAll()};$('weatherLocation').onclick=async()=>{try{const w=await currentWeather(),s=loadState();s.weather=w;saveState(s);renderAll();toast('Météo mise à jour')}catch{toast('Météo indisponible')}};$('rebuildDay').onclick=()=>{renderDay();toast(`Journée recalculée : séance à ${trainingTime()}`)};$('saveTracking').onclick=()=>{const s=loadState();s.checkins[today()]={sleep:$('trackSleep').value,sleepQ:$('trackSleepQ').value,fatigue:$('trackFatigue').value,motivation:$('trackMotivation').value,knee:$('trackKnee').value,soreness:$('trackSoreness').value,rpe:$('trackRpe').value,minutes:$('trackMinutes').value,notes:$('trackNotes').value};saveState(s);renderAll();toast('Suivi enregistré')};$('saveReview').onclick=()=>{const s=loadState();s.reviews[today()]={good:$('reviewGood').value,bad:$('reviewBad').value,priority:$('reviewPriority').value,tech:$('reviewTech').value,focus:$('reviewFocus').value,pain:$('reviewPain').value,pride:$('reviewPride').value};saveState(s);renderAll();toast('Débrief enregistré')};$('savePain').onclick=()=>{const s=loadState();s.pain[today()]={zone:$('painZone').value,rest:$('painRest').value,run:$('painRun').value,stairs:$('painStairs').value,post:$('painPost').value,swelling:$('painSwelling').checked,instability:$('painInstability').checked,locking:$('painLocking').checked,trend:$('painTrend').value};saveState(s);renderAll();toast('Douleur enregistrée')};$('saveTest').onclick=()=>{const s=loadState(),entry={phase:$('testPhase').value,date:$('testDate').value,name:$('testName').value,value:$('testValue').value,unit:$('testUnit').value,conditions:$('testConditions').value};if(!entry.value)return toast('Ajoute un résultat');const duplicate=s.tests.some(t=>t.phase===entry.phase&&t.name===entry.name);s.tests.push(entry);if(!duplicate)s.xp+=10;saveState(s);renderProgress();renderHome();toast(duplicate?'Test mis à jour dans l’historique':'Test enregistré • +10 XP')};$('saveFoodReview').onclick=()=>{saveFoodReview({energy:$('foodEnergy').value,digestion:$('foodDigestion').value,hunger:$('foodHunger').value,water:$('foodWater').value,notes:$('foodNotes').value});renderNutrition();toast('Bilan nutrition enregistré')};$('enableNotifications').onclick=async()=>{try{await notify.enable();renderNotifications()}catch{toast('Notifications indisponibles')}};$('saveNotifications').onclick=()=>{notify.saveSettings({training:$('notifyTraining').checked,meals:$('notifyMeals').checked,sleep:$('notifySleep').checked,lead:+$('notifyLead').value});toast('Préférences enregistrées')};$('testNotifications').onclick=()=>notify.send('Next Level 10','Notification de test');$('buildCoach').onclick=buildCoach;$('copyCoach').onclick=async()=>{buildCoach();await navigator.clipboard.writeText($('coachText').value);toast('Bilan copié')};$('exportData').onclick=exportState;$('importData').onchange=async e=>{if(e.target.files[0]){await importState(e.target.files[0]);location.reload()}};$('resetData').onclick=()=>{if(confirm('Effacer toutes les données ?')){clearState();location.reload()}}}
+function bind(){document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('[data-open-page]').forEach(b=>b.onclick=()=>showPage(b.dataset.openPage));document.querySelectorAll('#profileTabs button').forEach(b=>b.onclick=()=>showProfilePanel(b.dataset.panel));$('openDayPlanner').onclick=()=>{showPage('profile');showProfilePanel('day')};$('openCalendar').onclick=()=>openCalendar();$('openCalendarFromProfile').onclick=()=>openCalendar();$('calendarBack').onclick=()=>showPage('home');$('calendarPrev').onclick=()=>{calendarView.setMonth(calendarView.getMonth()-1);renderCalendar()};$('calendarNext').onclick=()=>{calendarView.setMonth(calendarView.getMonth()+1);renderCalendar()};if($('refreshCoach'))$('refreshCoach').onclick=()=>{renderCoach();toast('Analyse mise à jour')};$('weatherTemp').onchange=$('weatherHumidity').onchange=()=>{const s=loadState();s.weather={temp:+$('weatherTemp').value,humidity:+$('weatherHumidity').value};saveState(s);renderAll()};$('weatherLocation').onclick=async()=>{try{const w=await currentWeather(),s=loadState();s.weather=w;saveState(s);renderAll();toast('Météo mise à jour')}catch{toast('Météo indisponible')}};$('rebuildDay').onclick=()=>{renderDay();toast(`Journée recalculée : séance à ${trainingTime()}`)};$('saveTracking').onclick=()=>{const s=loadState();s.checkins[today()]={sleep:$('trackSleep').value,sleepQ:$('trackSleepQ').value,fatigue:$('trackFatigue').value,motivation:$('trackMotivation').value,knee:$('trackKnee').value,soreness:$('trackSoreness').value,rpe:$('trackRpe').value,minutes:$('trackMinutes').value,notes:$('trackNotes').value};saveState(s);renderAll();toast('Suivi enregistré')};$('saveReview').onclick=()=>{const s=loadState();s.reviews[today()]={good:$('reviewGood').value,bad:$('reviewBad').value,priority:$('reviewPriority').value,tech:$('reviewTech').value,focus:$('reviewFocus').value,pain:$('reviewPain').value,pride:$('reviewPride').value};saveState(s);renderAll();toast('Débrief enregistré')};$('savePain').onclick=()=>{const s=loadState();s.pain[today()]={zone:$('painZone').value,rest:$('painRest').value,run:$('painRun').value,stairs:$('painStairs').value,post:$('painPost').value,swelling:$('painSwelling').checked,instability:$('painInstability').checked,locking:$('painLocking').checked,trend:$('painTrend').value};saveState(s);renderAll();toast('Douleur enregistrée')};$('saveTest').onclick=()=>{const s=loadState(),entry={phase:$('testPhase').value,date:$('testDate').value,name:$('testName').value,value:$('testValue').value,unit:$('testUnit').value,conditions:$('testConditions').value};if(!entry.value)return toast('Ajoute un résultat');const duplicate=s.tests.some(t=>t.phase===entry.phase&&t.name===entry.name);s.tests.push(entry);if(!duplicate)s.xp+=10;saveState(s);renderProgress();renderHome();toast(duplicate?'Test mis à jour dans l’historique':'Test enregistré • +10 XP')};$('saveFoodReview').onclick=()=>{saveFoodReview({energy:$('foodEnergy').value,digestion:$('foodDigestion').value,hunger:$('foodHunger').value,water:$('foodWater').value,notes:$('foodNotes').value});renderNutrition();toast('Bilan nutrition enregistré')};$('enableNotifications').onclick=async()=>{try{await notify.enable();renderNotifications()}catch{toast('Notifications indisponibles')}};$('saveNotifications').onclick=()=>{notify.saveSettings({training:$('notifyTraining').checked,meals:$('notifyMeals').checked,sleep:$('notifySleep').checked,lead:+$('notifyLead').value});toast('Préférences enregistrées')};$('testNotifications').onclick=()=>notify.send('Next Level 10','Notification de test');$('buildCoach').onclick=buildCoach;$('copyCoach').onclick=async()=>{buildCoach();await navigator.clipboard.writeText($('coachText').value);toast('Bilan copié')};$('exportData').onclick=exportState;$('importData').onchange=async e=>{if(e.target.files[0]){await importState(e.target.files[0]);location.reload()}};$('resetData').onclick=()=>{if(confirm('Effacer toutes les données ?')){clearState();location.reload()}}}
 
 
 
 
 
+
+
+async function loadNovaDashboard(){
+ const root=$('novaDashboardRoot');if(!root)return;
+ try{const mod=await import('./nova.js');mod.renderNovaDashboard(root)}catch(error){console.error('NOVA indisponible:',error);root.innerHTML='<div class="notice"><b class="warn">NOVA TEMPORAIREMENT INDISPONIBLE</b></div>'}
+}
 
 async function loadSmartPlanning(){
  const dayRoot=$('smartPlanningRoot'),homeRoot=$('smartPlanningHome');
@@ -259,4 +268,23 @@ window.addEventListener('nl10:open-smart-day',()=>{
 });
 window.addEventListener('nl10:smart-plan-updated',()=>{
  try{renderDay();renderHome();loadSmartPlanning()}catch(e){console.error(e)}
+});
+
+window.addEventListener('nl10:smart-plan-updated',()=>{try{loadNovaDashboard()}catch(e){console.error(e)}});
+
+function openCheckinFromNova(){
+ try{
+  showPage('profile');
+  showProfilePanel('tracking');
+  setTimeout(()=>document.getElementById('trackSleep')?.focus(),120);
+ }catch(error){console.error(error)}
+}
+window.addEventListener('nl10:open-checkin',openCheckinFromNova);
+document.addEventListener('click',event=>{
+ const profileButton=event.target.closest('[data-profile-target]');
+ if(profileButton){
+  showPage('profile');
+  showProfilePanel(profileButton.dataset.profileTarget);
+ }
+ if(event.target.closest('#homeOpenCheckin'))openCheckinFromNova();
 });
