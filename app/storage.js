@@ -1,0 +1,7 @@
+const KEY='nextLevel10_2_0';
+const defaults={checkins:{},reviews:{},done:{},sessionRuns:{},nutrition:{},tests:[],pain:{},equipment:{},timerPreferences:{},xp:0,weather:{temp:24,humidity:50},notifications:{training:true,meals:true,sleep:true,lead:20,sent:{}}};
+export function loadState(){try{const raw=localStorage.getItem(KEY);if(!raw)return structuredClone(defaults);const s=JSON.parse(raw);return {...structuredClone(defaults),...s,checkins:s.checkins||{},reviews:s.reviews||{},done:s.done||{},sessionRuns:s.sessionRuns||{},nutrition:s.nutrition||{},tests:s.tests||[],pain:s.pain||{},equipment:s.equipment||{},timerPreferences:s.timerPreferences||{},notifications:{...defaults.notifications,...(s.notifications||{})}}}catch{return structuredClone(defaults)}}
+export function saveState(s){localStorage.setItem(KEY,JSON.stringify(s))}
+export function clearState(){localStorage.removeItem(KEY)}
+export function exportState(){const b=new Blob([JSON.stringify(loadState(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`next_level_10_${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)}
+export function importState(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);saveState({...structuredClone(defaults),...obj});resolve()}catch(e){reject(e)}};r.onerror=reject;r.readAsText(file)})}
