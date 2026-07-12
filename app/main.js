@@ -152,6 +152,7 @@ setTimeout(loadDailyChallenge,0);
 setTimeout(loadVideoAnalysis,0);
 setTimeout(loadSmartPlanning,0);
 setTimeout(loadNovaDashboard,0);
+setTimeout(loadNovaMemory,0);
 setTimeout(loadPerformanceCenter,0);const s=loadState(),r=calculateRatings(s);$('ratingConfidence').textContent=`Confiance ${r.confidence} • ${r.evidence} preuves`;$('playerCard').innerHTML=`<div class="overall-badge"><div><strong>${r.overall}</strong><span>N°10</span></div></div><div><div class="eyebrow">PROFIL RÉEL</div><h2>Milieu offensif droitier</h2><p class="muted">Les notes ne montent pas avec les XP seuls. Elles utilisent tes tests, ta régularité, tes débriefs, ton sommeil et ta nutrition.</p></div>`;$('ratingsGrid').innerHTML=RATING_NAMES.map(([k,n])=>`<div class="rating-card"><div class="rating-top"><b>${n}</b><strong>${r.ratings[k]}</strong></div><div class="rating-bar"><i style="width:${r.ratings[k]}%"></i></div><small>${ratingReason(k,s)}</small></div>`).join('');const start=new Date(normalizedDate()+'T12:00:00'),day=(start.getDay()+6)%7;start.setDate(start.getDate()-day);const dates=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d.toISOString().slice(0,10)}),load=dates.reduce((a,d)=>{const c=s.checkins[d]||{};return a+(+c.rpe||0)*(+c.minutes||0)},0);$('weekSummary').innerHTML=`<div class="facts"><div class="fact"><b>SÉANCES</b>${dates.filter(d=>s.done[d]).length}/7</div><div class="fact"><b>CHARGE</b>${load}</div><div class="fact"><b>CHECK-INS</b>${dates.filter(d=>s.checkins[d]).length}</div><div class="fact"><b>OBJECTIF</b>${objective()[0]}</div></div>`;$('ratingRules').innerHTML='<ul><li>Les tests donnent les preuves les plus fortes.</li><li>Les séances et débriefs renforcent la confiance des notes.</li><li>Le sommeil et l’alimentation influencent surtout récupération et discipline.</li><li>Une semaine manquée ne fait pas chuter brutalement les notes.</li></ul>';renderTests()}
 function renderTests(){const s=loadState(),scheduled=TEST_DAYS[normalizedDate()];$('testDate').value=today();if(scheduled)$('testPhase').value=scheduled.phase;$('testsHistory').innerHTML=(s.tests||[]).slice().reverse().map(t=>`<div class="test-row"><b>${t.phase} — ${t.name}</b><p>${t.date} • ${t.value} ${t.unit||''}</p><small>${t.conditions||''}</small></div>`).join('')||'<p class="muted">Aucun test enregistré.</p>'}
 function renderDay(){
@@ -174,6 +175,19 @@ function bind(){document.querySelectorAll('#nav button').forEach(b=>b.onclick=()
 
 
 
+
+
+async function loadNovaMemory(){
+ const root=$('novaMemoryRoot');
+ if(!root)return;
+ try{
+   const mod=await import('./nova-memory.js');
+   mod.renderNovaMemory(root);
+ }catch(error){
+   console.error('Mémoire NOVA indisponible:',error);
+   root.innerHTML='<div class="notice"><b class="warn">MÉMOIRE NOVA INDISPONIBLE</b><p>Les autres fonctions restent disponibles.</p></div>';
+ }
+}
 
 async function loadNovaConversation(){
  const root=$('novaConversationRoot');
@@ -308,3 +322,5 @@ window.addEventListener('nl10:open-nova-chat',()=>{
 document.addEventListener('click',event=>{
  if(event.target.closest('#closeNovaChatPage'))showPage('home');
 });
+
+window.addEventListener('nl10:session-video-completed',()=>{try{loadNovaMemory()}catch(e){console.error(e)}});

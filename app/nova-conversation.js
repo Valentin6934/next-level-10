@@ -1,5 +1,6 @@
 import {loadState,saveState} from './storage.js';
 import {renderVoiceControls,speakText,shouldAutoSpeak} from './voice.js';
+import {buildNovaMemory} from './nova-memory.js';
 import {planFor,normalizedDate} from './data.js';
 
 const localDate=()=>{
@@ -85,7 +86,7 @@ function classify(text){
 }
 
 function responseFor(text,state){
- const ctx=todayContext(state),kind=classify(text),miss=missing(ctx),risk=safety(ctx),mem=memorySummary(state);
+ const ctx=todayContext(state),kind=classify(text),miss=missing(ctx),risk=safety(ctx),mem=memorySummary(state),longMemory=buildNovaMemory(state);
  const evidence=[];
  if(ctx.sleep!==null)evidence.push(`sommeil ${ctx.sleep} h`);
  if(ctx.fatigue!==null)evidence.push(`fatigue ${ctx.fatigue}/10`);
