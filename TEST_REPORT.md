@@ -1,17 +1,15 @@
-# TEST REPORT — V3.4.7
+# TEST REPORT — V3.5.1 Sprint 2.2
 
-## Vérifications automatiques
-- Syntaxe de tous les modules JavaScript : OK.
-- Module planning ajouté au service worker : OK.
-- Version manifeste : OK.
-- ZIP prêt pour hébergement statique : OK.
+## Automatique
+- Syntaxe JavaScript : OK.
+- Références DOM statiques : OK.
+- Service worker et manifeste versionnés : OK.
 
-## Tests à réaliser sur iPhone
-- Accepter puis refuser le planning.
-- Vérifier le maintien d’un horaire club.
-- Simuler 35 °C.
-- Simuler fatigue 8/10.
-- Simuler douleur importante.
-- Vérifier l’alternative intérieure.
-- Vérifier l’emploi du temps après rechargement.
-- Vérifier largeur 320 px.
+## À tester sur iPhone
+- Les quatre onglets.
+- Les quatre raccourcis d’accueil.
+- Compléter mes données.
+- NOVA avec profil vide.
+- NOVA après saisie sommeil/fatigue.
+- Profil à 320 px et 390 px.
+- Séance, calendrier et import/export.
