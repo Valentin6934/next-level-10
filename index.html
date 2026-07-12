@@ -8,17 +8,19 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
-<title>Next Level 10 — 3.6.0</title>
+<title>Next Level 10 — 1.0.0</title>
 </head>
 <body>
-<div class="splash" aria-hidden="true"><div class="splash-mark">10</div><strong>NEXT LEVEL 10</strong><span>Bienvenue Valentin</span></div>
+<div class="splash" aria-hidden="true"><div class="splash-mark">10</div><strong>NEXT LEVEL 10</strong><span>Bienvenue <span data-player-name>Valentin</span></span></div>
 <div id="fatalError" class="fatal hidden"></div>
+<div id="onboardingRoot"></div>
+<div id="appUpdateRoot"></div>
 
 <div class="app-shell">
   <aside class="side">
     <div class="brand">
       <div class="brand-mark">10</div>
-      <div><strong>NEXT LEVEL 10</strong><span>VALENTIN • PREP MODE</span></div>
+      <div><strong>NEXT LEVEL 10</strong><span><span data-player-name>VALENTIN</span> • PLAYER MODE</span></div>
     </div>
     <nav id="nav">
       <button class="active" data-page="home"><span>◉</span><b>NOVA</b></button>
@@ -26,14 +28,14 @@
       <button data-page="progress"><span>↗</span><b>Progression</b></button>
       <button data-page="profile"><span>◎</span><b>Profil</b></button>
     </nav>
-    <div class="side-note">TRAIN • LEARN • RECOVER</div>
+    <div class="side-note">TRAIN • LEARN • RECOVER</div><div class="release-badge">V1.0</div>
   </aside>
 
   <main>
     <section id="page-home" class="page active">
       <header class="nova-home-head">
         <div>
-          <div class="eyebrow">NEXT LEVEL 10 • VALENTIN</div>
+          <div class="eyebrow">NEXT LEVEL 10 • <span data-player-name>VALENTIN</span></div>
           <h1>Ton coach personnel.</h1>
           <p>Tout ce qui compte aujourd’hui, sans menus inutiles.</p>
         </div>
@@ -112,7 +114,7 @@
 
     <section id="page-calendar" class="page">
       <header class="page-head calendar-head">
-        <div><div class="eyebrow">PRÉPARATION ESTIVALE</div><h1>Calendrier intelligent</h1><p>Toute ta préparation du 23 juillet au 6 septembre, avec le détail de chaque journée.</p></div>
+        <div><div class="eyebrow">PLANNING PERSONNEL</div><h1>Calendrier intelligent</h1><p>Ton calendrier, tes séances et tes journées de progression.</p></div>
         <button id="calendarBack" class="secondary">RETOUR</button>
       </header>
 
@@ -163,7 +165,7 @@
 
     <section id="page-progress" class="page">
       <header class="page-head">
-        <div><div class="eyebrow">PROGRESSION RÉELLE</div><h1>Ton profil de joueur</h1><p>Les notes évoluent uniquement avec des preuves : régularité, tests, qualité du suivi et récupération.</p></div>
+        <div><div class="eyebrow">PROGRESSION RÉELLE</div><h1>Profil et progression</h1><p>Les notes évoluent uniquement avec des preuves : régularité, tests, qualité du suivi et récupération.</p></div>
         <span id="ratingConfidence" class="pill"></span>
       </header>
       <div id="novaMemoryRoot" class="gap"></div>
@@ -311,6 +313,7 @@
       </section>
 
       <section id="profile-settings" class="profile-panel">
+        <div id="playerProfileSettings" class="gap"></div>
         <div class="grid two">
           <article class="panel">
             <div class="eyebrow">NOTIFICATIONS</div>
@@ -329,6 +332,19 @@
             <div class="actions"><button id="buildCoach" class="primary">GÉNÉRER</button><button id="copyCoach" class="secondary">COPIER</button></div>
           </article>
         </div>
+        <article class="panel gap product-status-panel">
+          <div class="actions between">
+            <div><div class="eyebrow">NEXT LEVEL 10</div><h3>Version 1.0.0</h3></div>
+            <span class="pill">LOCAL-FIRST</span>
+          </div>
+          <p>Tes données restent dans ton navigateur, sauf si tu les exportes volontairement.</p>
+          <div class="product-status-grid">
+            <span><b>20+</b> modules</span>
+            <span><b>PWA</b> installable</span>
+            <span><b>Offline</b> interface</span>
+            <span><b>NOVA</b> local</span>
+          </div>
+        </article>
       </section>
     </section>
   </main>

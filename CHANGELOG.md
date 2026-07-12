@@ -1,10 +1,17 @@
-# CHANGELOG — V3.6.0 Sprint 2.5
+# CHANGELOG — Next Level 10 V1.0.0
 
-## NOVA Memory Engine
-- Mémoire synthétique sur 14 jours.
-- Tendances sommeil, fatigue, technique, concentration et régularité.
-- Détection simple des progrès et régressions.
-- Objectifs intelligents du jour, de la semaine et avant la reprise.
-- Dashboard mémoire dans Progression.
-- NOVA utilise ces tendances dans ses réponses sur la progression.
-- Aucune donnée inventée : une tendance exige des preuves enregistrées.
+## Première version produit
+- Onboarding joueur personnalisable.
+- Profil modifiable dans Réglages.
+- Identité dynamique dans l’interface et NOVA.
+- Schéma de données versionné avec migration automatique.
+- Export JSON enrichi et import rétrocompatible.
+- Navigation renforcée contre les pages introuvables.
+- Carte de version et statut local-first.
+- Documentation Vision, Architecture et Confidentialité.
+- Toutes les fonctions historiques sont conservées.
+
+## Limites assumées
+- NOVA reste local et basé sur des règles.
+- Pas de compte ni synchronisation cloud.
+- Pas encore d’analyse vidéo IA serveur.
