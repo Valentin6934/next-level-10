@@ -8,6 +8,7 @@ import {calculateRatings,RATING_NAMES,ratingReason} from './ratings.js';
 import {buildTimerPlan,normalizePlan} from './timer.js';
 import {applyPlayerIdentity,renderOnboarding,renderPlayerSettings} from './player.js';
 import {renderReleaseNotice} from './release.js';
+import {renderNovaHub,renderQuickCheckin,renderInterfaceSettings} from './nova-hub.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -340,6 +341,16 @@ function bootV1(){
   renderOnboarding($('onboardingRoot'));
   renderPlayerSettings($('playerProfileSettings'));
   renderReleaseNotice($('appUpdateRoot'));
+  renderNovaHub($('novaHubRoot'),{
+   openPage:showPage,
+   openProfile:name=>{showPage('profile');showProfilePanel(name)},
+   openConversation:()=>{showPage('nova-chat');loadNovaConversation()},
+   refreshApp:()=>{renderAll();loadNovaDashboard();loadNovaMemory()}
+  });
+  renderQuickCheckin($('quickCheckinRoot'),{
+   onSaved:()=>{renderAll();loadNovaDashboard();loadNovaMemory();toast('Check-in enregistré')}
+  });
+  renderInterfaceSettings($('interfaceSettingsRoot'));
  }catch(error){
   console.error('Initialisation V1:',error);
  }
@@ -353,3 +364,14 @@ window.addEventListener('nl10:player-updated',()=>{
  }catch(error){console.error(error)}
 });
 setTimeout(bootV1,0);
+
+window.addEventListener('nl10:checkin-saved',()=>{
+ try{
+  renderNovaHub($('novaHubRoot'),{
+   openPage:showPage,
+   openProfile:name=>{showPage('profile');showProfilePanel(name)},
+   openConversation:()=>{showPage('nova-chat');loadNovaConversation()},
+   refreshApp:()=>{renderAll();loadNovaDashboard();loadNovaMemory()}
+  });
+ }catch(error){console.error(error)}
+});
