@@ -1,15 +1,15 @@
-# CHANGELOG — V1.4.0
+# CHANGELOG — Next Level 10
 
-## NOVA Video Lab
-- Nouvelle bibliothèque : technique, tactique, physique et auto-analyse.
-- Questions propres à chaque thème.
-- Correction locale sans inventer le contenu de la vidéo.
-- Score automatique fondé sur la précision et la complétude des réponses.
-- Retours : points validés et axes à améliorer.
-- Mission terrain après chaque analyse.
-- Progression par compétence et historique.
-- +40 XP par analyse et +15 XP par mission terrain validée.
+## 1.5.0 — PWA Performance & Mobile
 
-## Compatibilité
-- Données V1.3 conservées.
-- Cache PWA versionné V1.4.
+- Version harmonisée dans l'interface, le manifeste, le module de publication et le cache.
+- Nouveau gestionnaire PWA (`app/pwa.js`) : installation, état hors-ligne et détection des mises à jour.
+- Service worker restructuré avec caches statique et dynamique séparés.
+- Navigation hors-ligne sécurisée avec repli vers `index.html`.
+- Nettoyage automatique des anciens caches lors de l'activation.
+- Optimisations mobiles : safe areas iPhone, focus visible, réduction des animations et meilleur comportement tactile.
+- Optimisation de rendu des pages inactives avec `content-visibility`.
+
+## 1.4.0
+
+- NOVA Video Lab : catalogue, missions guidées et historique d'analyse.

@@ -1,7 +1,7 @@
 {
   "name": "Next Level 10",
   "short_name": "NextLevel10",
-  "start_url": ".",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#050505",
@@ -13,5 +13,19 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Coach football personnel avec NOVA Video Lab et progression tactique."
+  "description": "Coach football personnel local-first avec NOVA, progression, vidéo et mode hors-ligne.",
+  "id": "./",
+  "scope": "./",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "lang": "fr-FR",
+  "categories": [
+    "sports",
+    "health",
+    "lifestyle"
+  ]
 }

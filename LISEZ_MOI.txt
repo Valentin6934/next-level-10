@@ -1,12 +1,8 @@
-NEXT LEVEL 10 — V1.4.0
+NEXT LEVEL 10 — V1.5.0
 
-Importer le contenu du pack GitHub sur develop.
-Tester la Preview Vercel avant fusion dans main.
+1. Copier le contenu du dossier sur la branche develop.
+2. Déployer une Preview Vercel.
+3. Vérifier installation, navigation, mode hors-ligne et conservation des données.
+4. Fusionner dans main après validation.
 
-Fichiers principaux modifiés :
-- app/video.js
-- app/video-catalog.js
-- style.css
-- index.html
-- app/release.js
-- sw.js
+Important : vider l'ancienne Preview si un cache V1.4 reste affiché, puis recharger une fois.

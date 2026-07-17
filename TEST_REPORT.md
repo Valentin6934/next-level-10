@@ -1,17 +1,17 @@
-# TEST REPORT — V1.4.0
+# TEST REPORT — V1.5.0
 
-## Contrôles automatiques
-- Syntaxe JavaScript de tous les modules.
-- Manifest JSON valide.
-- Cache PWA V1.4.
-- Présence des modules vidéo dans le service worker.
+## Contrôles automatisés effectués
 
-## Recette
-1. Ouvrir Profil > Vidéo.
-2. Filtrer la bibliothèque.
-3. Choisir une analyse.
-4. Sauvegarder puis rouvrir un brouillon.
-5. Terminer une analyse avec deux réponses détaillées.
-6. Vérifier score, correction, XP et historique.
-7. Valider la mission terrain.
-8. Recharger la PWA et vérifier la conservation des données.
+- Syntaxe JavaScript vérifiée sur tous les fichiers `app/*.js` et `sw.js` avec Node.js.
+- Manifeste JSON validé.
+- Tous les fichiers référencés par le service worker sont présents.
+- Cohérence de version 1.5.0 vérifiée dans `index.html`, `app/release.js` et `sw.js`.
+- Archive ZIP testée après génération.
+
+## Contrôles manuels recommandés en Preview
+
+- Installation PWA sur iPhone/Android.
+- Premier lancement hors-ligne après une visite connectée.
+- Mise à jour depuis une installation V1.4.
+- Parcours NOVA, planning, séance, progression, profil et vidéo.
+- Export/import des données locales.

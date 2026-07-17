@@ -1,14 +1,11 @@
-# Next Level 10 — V1.4
+# Next Level 10 — V1.5.0
 
-Personal Edition avec NOVA Video Lab.
+Application PWA locale de préparation football avec NOVA, planning, suivi, progression, nutrition et analyse vidéo.
 
-## Nouveautés
-- bibliothèque vidéo par thème ;
-- analyses guidées ;
-- correction locale basée uniquement sur les réponses saisies ;
-- score automatique de précision ;
-- progression par compétence ;
-- missions terrain et XP ;
-- historique complet.
+## Installation
 
-Projet statique déployable directement sur Vercel.
+Servir le dossier avec un serveur HTTPS ou local, puis ouvrir `index.html`. L'installation PWA est proposée par le navigateur compatible.
+
+## Données
+
+Les données sportives restent dans le stockage local du navigateur sauf export volontaire.
