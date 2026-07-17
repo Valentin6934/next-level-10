@@ -1,16 +1,17 @@
-# TEST REPORT — V1.2.0
+# TEST REPORT — V3.4.7
 
 ## Vérifications automatiques
-- Syntaxe de tous les modules JavaScript.
-- Présence des nouveaux modules dans le cache PWA.
-- Références DOM statiques contrôlées.
-- Manifest JSON valide.
+- Syntaxe de tous les modules JavaScript : OK.
+- Module planning ajouté au service worker : OK.
+- Version manifeste : OK.
+- ZIP prêt pour hébergement statique : OK.
 
-## Recette personnelle
-1. Ouvrir l’app sans check-in : NOVA doit afficher « Données manquantes ».
-2. Enregistrer un check-in : le cockpit doit se recalculer.
-3. Tester séance, conversation et check-in depuis l’accueil.
-4. Tester les quatre onglets du bas.
-5. Vérifier toutes les rubriques du Centre personnel.
-6. Fermer et rouvrir la PWA : les données doivent rester présentes.
-7. Tester hors connexion après une première ouverture en ligne.
+## Tests à réaliser sur iPhone
+- Accepter puis refuser le planning.
+- Vérifier le maintien d’un horaire club.
+- Simuler 35 °C.
+- Simuler fatigue 8/10.
+- Simuler douleur importante.
+- Vérifier l’alternative intérieure.
+- Vérifier l’emploi du temps après rechargement.
+- Vérifier largeur 320 px.
