@@ -1,18 +1,16 @@
-# TEST REPORT — V1.1.0
+# TEST REPORT — V1.2.0
 
 ## Vérifications automatiques
 - Syntaxe de tous les modules JavaScript.
-- Module NOVA Hub inclus dans le service worker.
-- Manifest PWA valide.
-- Références HTML de `main.js`.
-- Création du ZIP GitHub et de la sauvegarde complète.
+- Présence des nouveaux modules dans le cache PWA.
+- Références DOM statiques contrôlées.
+- Manifest JSON valide.
 
-## Recette iPhone
-1. Vérifier que les données V1.0 sont conservées.
-2. Ouvrir le bouton NOVA depuis chaque onglet.
-3. Tester les quatre raccourcis du tiroir.
-4. Enregistrer un check-in rapide.
-5. Vérifier la mise à jour du Dashboard NOVA.
-6. Activer puis désactiver le mode essentiel.
-7. Tester séance, planning, progression et profil.
-8. Fermer puis rouvrir la PWA.
+## Recette personnelle
+1. Ouvrir l’app sans check-in : NOVA doit afficher « Données manquantes ».
+2. Enregistrer un check-in : le cockpit doit se recalculer.
+3. Tester séance, conversation et check-in depuis l’accueil.
+4. Tester les quatre onglets du bas.
+5. Vérifier toutes les rubriques du Centre personnel.
+6. Fermer et rouvrir la PWA : les données doivent rester présentes.
+7. Tester hors connexion après une première ouverture en ligne.

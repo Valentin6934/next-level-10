@@ -1,18 +1,15 @@
-# Next Level 10 — V1.1
+# Next Level 10 — V1.2 Personal Edition
 
-PWA de coaching football personnalisée autour de NOVA.
+Version finale candidate pour un usage personnel quotidien.
 
-## Nouveautés V1.1
-- NOVA accessible depuis toutes les pages avec un bouton flottant ;
-- résumé contextuel du jour ;
-- accès rapide à la séance, au planning et à la conversation ;
-- check-in rapide sans chercher dans les menus ;
-- mode essentiel pour masquer les blocs secondaires ;
-- profil et données V1.0 conservés.
+## Changements principaux
+- cockpit NOVA comme première information de l’accueil ;
+- séance, conversation et check-in accessibles immédiatement ;
+- mode essentiel réellement compact ;
+- centre personnel organisé pour les fonctions secondaires ;
+- recommandations bloquées lorsque les données du jour manquent ;
+- libellés « Non renseigné » au lieu de valeurs supposées ;
+- meilleure ergonomie iPhone et zones tactiles.
 
 ## Déploiement
-Projet statique sans commande de build. Publier la racine sur Vercel.
-
-## Branches
-- `main` : production ;
-- `develop` : prévisualisation.
+Déployer d’abord sur `develop`, tester la Preview Vercel, puis fusionner vers `main`.

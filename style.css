@@ -234,3 +234,17 @@ button{transition:transform .12s ease,border-color .2s ease,background .2s ease}
 .focus-mode #dailyChallengeRoot,.focus-mode #smartPlanningHome{display:none}.focus-mode .home-day-preview{margin-top:10px}.focus-mode .profile-tabs.compact-tabs{display:none}
 @media(max-width:650px){.nova-fab{bottom:calc(104px + env(safe-area-inset-bottom));right:14px}.quick-checkin-grid{grid-template-columns:1fr}.nova-hub-data{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:380px){.nova-hub-data{grid-template-columns:1fr}.nova-fab{width:56px;height:56px;border-radius:19px}}
+
+/* V1.2 — Personal Edition */
+.personal-edition main{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.personal-cockpit{position:relative;overflow:hidden;padding:22px;border:1px solid rgba(255,255,255,.09);border-radius:24px;background:radial-gradient(circle at 90% 0,rgba(199,255,53,.14),transparent 34%),linear-gradient(145deg,#151915,#090b09);box-shadow:0 20px 70px rgba(0,0,0,.26)}
+.personal-cockpit:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:#717771}.personal-cockpit.ready:before{background:var(--lime)}.personal-cockpit.warning:before{background:#ffb84d}.personal-cockpit.danger:before{background:#ff5d65}
+.cockpit-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.cockpit-top h2{font-size:clamp(26px,5vw,42px);margin:.18em 0}.cockpit-top p{max-width:680px;color:#a8afa5;line-height:1.5}.cockpit-status{padding:8px 10px;border-radius:999px;background:#202420;color:#bbc1b8;font-size:10px;font-weight:900;white-space:nowrap}
+.cockpit-session{display:grid;gap:4px;margin:18px 0;padding:14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07)}.cockpit-session small,.cockpit-facts small{color:#838a80;font-size:9px;letter-spacing:1px}.cockpit-session strong{font-size:18px}.cockpit-session span{color:#929990;font-size:12px}
+.cockpit-actions{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:9px}.cockpit-actions button{min-height:50px;border-radius:14px}
+.cockpit-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.cockpit-facts span{display:grid;gap:4px;padding:10px 12px;background:rgba(255,255,255,.035);border-radius:12px}.cockpit-facts b{font-size:12px}
+.personal-edition.focus-mode .secondary-coach-card{display:none}.personal-edition.focus-mode .redundant-session-command{display:none}.personal-edition.focus-mode .compact-command-grid{grid-template-columns:repeat(3,1fr)}
+.personal-edition .profile-hub{position:sticky;top:0;z-index:4;padding:8px 0;background:linear-gradient(#050505 75%,transparent)}
+.personal-edition .profile-hub button{min-height:78px}.personal-edition .profile-panel{animation:personalFade .18s ease}@keyframes personalFade{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+.personal-edition button,.personal-edition input,.personal-edition select,.personal-edition textarea{touch-action:manipulation}
+@media(max-width:700px){.personal-cockpit{padding:17px}.cockpit-top{display:block}.cockpit-status{display:inline-block;margin-top:6px}.cockpit-actions{grid-template-columns:1fr 1fr}.cockpit-actions .primary{grid-column:1/-1}.cockpit-facts{grid-template-columns:1fr}.personal-edition.focus-mode .compact-command-grid{grid-template-columns:1fr 1fr}.personal-edition .home-today-strip{display:block}.personal-edition .home-mini-stats{margin-top:12px}.personal-edition .profile-hub{grid-template-columns:repeat(2,1fr)}}

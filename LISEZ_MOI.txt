@@ -1,18 +1,8 @@
-NEXT LEVEL 10 — V1.1.0
+NEXT LEVEL 10 — V1.2.0 PERSONAL EDITION
 
-Ajoute les fichiers du pack sur la branche develop.
-Teste la Preview Vercel avant de fusionner dans main.
+1. Ajoute le contenu du ZIP GitHub sur la branche develop.
+2. Remplace les fichiers existants quand GitHub le demande.
+3. Commit : release: Next Level 10 v1.2.0 Personal Edition
+4. Teste la Preview Vercel avant de fusionner vers main.
 
-Nouveaux fichiers :
-- app/nova-hub.js
-
-Fichiers remplacés :
-- index.html
-- style.css
-- app/main.js
-- app/release.js
-- sw.js
-- manifest.webmanifest
-- README.md
-- CHANGELOG.md
-- TEST_REPORT.md
+Nouveau fichier : app/personal-ui.js
