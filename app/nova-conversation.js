@@ -81,6 +81,8 @@ function classify(text){
  if(/mange|repas|nutrition|boire|eau|hydrat/.test(t))return'nutrition';
  if(/progr|niveau|note|r1|fort|faible/.test(t))return'progress';
  if(/vidéo|video|analyse|scan|contrôle/.test(t))return'video';
+ if(/match|joue samedi|joue dimanche|joue demain/.test(t))return'match';
+ if(/mission|objectif du jour/.test(t))return'mission';
  if(/demain|prochaine/.test(t))return'tomorrow';
  if(/merci/.test(t))return'thanks';
  return'unknown';
@@ -142,6 +144,14 @@ function responseFor(text,state){
   const last=state.videoAnalyses[state.videoAnalyses.length-1];
   return `Ta dernière analyse portait sur « ${last.title} ». La leçon enregistrée est : ${last.lesson||'aucune leçon saisie'}.`;
  }
+ if(kind==='match'){
+  const when=/demain/.test(text.toLowerCase())?'demain':'ce week-end';
+  return `Tu m’indiques un match ${when}. Je ne modifie pas automatiquement ton calendrier, mais je te conseille de protéger les 24 heures précédentes : pas de charge maximale, sommeil prioritaire et hydratation régulière.`;
+ }
+ if(kind==='mission'){
+  const mission=state.novaCoach?.missions?.[ctx.date];
+  return mission?`Ta mission du jour est « ${mission.title} » : ${mission.detail}${mission.completed?' Elle est déjà terminée.':''}`:`Aucune mission n’est encore générée. Retourne sur l’accueil pour que NOVA crée ton plan d’action.`;
+ }
  if(kind==='tomorrow'){
   return ctx.nextMission?`Ta mission suivante est : ${ctx.nextMission}`:`Aucune mission précise n’est encore enregistrée pour demain. Termine le débrief ou l’analyse vidéo pour en créer une.`;
  }
@@ -173,7 +183,8 @@ export function renderNovaConversation(root){
     <button>Est-ce que je peux faire ma séance ?</button>
     <button>Comment est ma récupération ?</button>
     <button>Que sais-tu de ma progression ?</button>
-    <button>Quelle est ma mission suivante ?</button>
+    <button>Quelle est ma mission du jour ?</button>
+    <button>Je joue demain</button>
    </div>
    <form id="novaConversationForm" class="nova-conversation-form">
     <textarea id="novaConversationInput" placeholder="Écris à NOVA…" rows="2"></textarea>

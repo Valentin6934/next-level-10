@@ -10,6 +10,7 @@ import {applyPlayerIdentity,renderOnboarding,renderPlayerSettings} from './playe
 import {renderReleaseNotice} from './release.js';
 import {renderNovaHub,renderQuickCheckin,renderInterfaceSettings} from './nova-hub.js';
 import {renderPersonalCockpit,installPersonalUX,rememberPage} from './personal-ui.js';
+import {renderNovaCoach} from './nova-coach.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -295,7 +296,7 @@ async function loadCareerStable(){
  }
 }
 
-function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}})}
+function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage})}
 window.addEventListener('error',e=>{$('fatalError').classList.remove('hidden');$('fatalError').innerHTML=`<h2>Erreur détectée</h2><p>${e.message}</p><p>Recharge la page : tes données restent sauvegardées.</p>`});
 bind();renderAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(console.error);
 setTimeout(loadCareerStable,0);
@@ -356,7 +357,7 @@ function bootV1(){
    onSaved:()=>{renderAll();loadNovaDashboard();loadNovaMemory();toast('Check-in enregistré')}
   });
   renderInterfaceSettings($('interfaceSettingsRoot'));
-  renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});
+  renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage});
   installPersonalUX({showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()},showProfilePanel});
  }catch(error){
   console.error('Initialisation V1:',error);
@@ -382,3 +383,5 @@ window.addEventListener('nl10:checkin-saved',()=>{
   });
  }catch(error){console.error(error)}
 });
+
+window.addEventListener('nl10:coach-updated',()=>{try{renderAll()}catch(e){console.error(e)}});
