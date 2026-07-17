@@ -1,6 +1,6 @@
 import {loadState,saveState} from './storage.js';
 
-const VERSION='1.3.0';
+const VERSION='1.4.0';
 
 export function renderReleaseNotice(root){
   if(!root)return;
@@ -8,7 +8,7 @@ export function renderReleaseNotice(root){
   const dismissed=state.app?.dismissedUpdates||[];
   if(dismissed.includes(VERSION)){root.innerHTML='';return}
   root.innerHTML=`<aside class="release-notice">
-    <div><b>Next Level 10 V1.3</b><span>NOVA Coach : mission quotidienne, bilan sur 7 jours et conversation enrichie.</span></div>
+    <div><b>Next Level 10 V1.4</b><span>NOVA Video Lab : bibliothèque, correction guidée, compétences et missions terrain.</span></div>
     <button class="release-dismiss" aria-label="Fermer">×</button>
   </aside>`;
   root.querySelector('.release-dismiss').onclick=()=>{
