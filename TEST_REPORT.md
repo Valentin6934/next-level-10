@@ -1,17 +1,17 @@
-# TEST REPORT — V3.4.7
+# TEST REPORT — V1.4.0
 
-## Vérifications automatiques
-- Syntaxe de tous les modules JavaScript : OK.
-- Module planning ajouté au service worker : OK.
-- Version manifeste : OK.
-- ZIP prêt pour hébergement statique : OK.
+## Contrôles automatiques
+- Syntaxe JavaScript de tous les modules.
+- Manifest JSON valide.
+- Cache PWA V1.4.
+- Présence des modules vidéo dans le service worker.
 
-## Tests à réaliser sur iPhone
-- Accepter puis refuser le planning.
-- Vérifier le maintien d’un horaire club.
-- Simuler 35 °C.
-- Simuler fatigue 8/10.
-- Simuler douleur importante.
-- Vérifier l’alternative intérieure.
-- Vérifier l’emploi du temps après rechargement.
-- Vérifier largeur 320 px.
+## Recette
+1. Ouvrir Profil > Vidéo.
+2. Filtrer la bibliothèque.
+3. Choisir une analyse.
+4. Sauvegarder puis rouvrir un brouillon.
+5. Terminer une analyse avec deux réponses détaillées.
+6. Vérifier score, correction, XP et historique.
+7. Valider la mission terrain.
+8. Recharger la PWA et vérifier la conservation des données.

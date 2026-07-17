@@ -1,15 +1,14 @@
-# Next Level 10 — V1.2 Personal Edition
+# Next Level 10 — V1.4
 
-Version finale candidate pour un usage personnel quotidien.
+Personal Edition avec NOVA Video Lab.
 
-## Changements principaux
-- cockpit NOVA comme première information de l’accueil ;
-- séance, conversation et check-in accessibles immédiatement ;
-- mode essentiel réellement compact ;
-- centre personnel organisé pour les fonctions secondaires ;
-- recommandations bloquées lorsque les données du jour manquent ;
-- libellés « Non renseigné » au lieu de valeurs supposées ;
-- meilleure ergonomie iPhone et zones tactiles.
+## Nouveautés
+- bibliothèque vidéo par thème ;
+- analyses guidées ;
+- correction locale basée uniquement sur les réponses saisies ;
+- score automatique de précision ;
+- progression par compétence ;
+- missions terrain et XP ;
+- historique complet.
 
-## Déploiement
-Déployer d’abord sur `develop`, tester la Preview Vercel, puis fusionner vers `main`.
+Projet statique déployable directement sur Vercel.

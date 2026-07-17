@@ -1,12 +1,15 @@
-# CHANGELOG — V3.4.7
+# CHANGELOG — V1.4.0
 
-## Planning intelligent
-- Analyse météo, sommeil, fatigue, douleurs et charge récente.
-- Choix automatique de l’horaire de séance.
-- Respect des horaires imposés par le club.
-- Volume normal, réduit ou récupération.
-- Alternative intérieure en cas de pluie/vent.
-- Recalcul de la collation, de l’analyse vidéo, du dîner et du coucher.
-- Objectif d’hydratation.
-- Boutons pour accepter ou refuser l’adaptation.
-- Explication transparente de chaque décision.
+## NOVA Video Lab
+- Nouvelle bibliothèque : technique, tactique, physique et auto-analyse.
+- Questions propres à chaque thème.
+- Correction locale sans inventer le contenu de la vidéo.
+- Score automatique fondé sur la précision et la complétude des réponses.
+- Retours : points validés et axes à améliorer.
+- Mission terrain après chaque analyse.
+- Progression par compétence et historique.
+- +40 XP par analyse et +15 XP par mission terrain validée.
+
+## Compatibilité
+- Données V1.3 conservées.
+- Cache PWA versionné V1.4.

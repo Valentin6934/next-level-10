@@ -1,11 +1,12 @@
-NEXT LEVEL 10 — V3.4.7 — PLANNING INTELLIGENT
+NEXT LEVEL 10 — V1.4.0
 
-Le planning s’adapte désormais à la météo, au sommeil, à la fatigue, aux douleurs,
-à la charge récente et au programme Domtac.
+Importer le contenu du pack GitHub sur develop.
+Tester la Preview Vercel avant fusion dans main.
 
-Déploiement Cloudflare Pages :
-1. Décompresse le ZIP.
-2. Dans Workers & Pages, choisis ton projet.
-3. Crée un nouveau déploiement par upload direct.
-4. Envoie le dossier next_level_10_3_4_7_planning_intelligent.
-5. Actualise l’application dans Safari.
+Fichiers principaux modifiés :
+- app/video.js
+- app/video-catalog.js
+- style.css
+- index.html
+- app/release.js
+- sw.js
