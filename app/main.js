@@ -9,6 +9,7 @@ import {buildTimerPlan,normalizePlan} from './timer.js';
 import {applyPlayerIdentity,renderOnboarding,renderPlayerSettings} from './player.js';
 import {renderReleaseNotice} from './release.js';
 import {renderNovaHub,renderQuickCheckin,renderInterfaceSettings} from './nova-hub.js';
+import {renderPersonalCockpit,installPersonalUX,rememberPage} from './personal-ui.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -34,6 +35,7 @@ function showPage(name){
  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
  target.classList.add('active');
  document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));
+ rememberPage(name);
  try{scrollTo({top:0,behavior:'smooth'})}catch{scrollTo(0,0)}
 }
 function painLevel(state){const p=state.pain[today()]||{};if(p.swelling||p.instability||p.locking||+p.run>=5||p.trend==='Pire')return'high';if(+p.run>=2||+p.post>=2)return'mid';return'low'}
@@ -43,22 +45,25 @@ function loadScore(state,days=7){return recentDates(days).reduce((sum,d)=>{const
 function average(values){const v=values.filter(x=>Number.isFinite(x)&&x>0);return v.length?v.reduce((a,b)=>a+b,0)/v.length:0}
 function coachAnalysis(){
  const s=loadState(),c=s.checkins[today()]||{},p=s.pain[today()]||{},w=s.weather,plan=planFor(normalizedDate());
- const sleep=+c.sleep||0,fatigue=+c.fatigue||0,soreness=+c.soreness||0,motivation=+c.motivation||0;
- const load3=loadScore(s,3),load7=loadScore(s,7),pain=painLevel(s);
- const reasons=[],actions=[],status=[];
- let level='VERT',headline='Tu peux suivre la séance prévue.';
+ const has=v=>v!==''&&v!==null&&v!==undefined&&Number.isFinite(Number(v));
+ const sleep=has(c.sleep)?Number(c.sleep):null,fatigue=has(c.fatigue)?Number(c.fatigue):null,soreness=has(c.soreness)?Number(c.soreness):null,motivation=has(c.motivation)?Number(c.motivation):null;
+ const load3=loadScore(s,3),load7=loadScore(s,7),pain=painLevel(s),painKnown=Object.keys(p).length>0;
+ const reasons=[],actions=[],status=[],missing=[];
+ if(sleep===null)missing.push('sommeil');if(fatigue===null)missing.push('fatigue');if(!painKnown)missing.push('douleur');
+ let level='GRIS',headline='Complète ton check-in avant la recommandation.';
  if(pain==='high'){level='ROUGE';headline='Aujourd’hui, on protège ton corps.';reasons.push('Douleur ou signal articulaire important');actions.push(['Intensité','Aucun sprint, saut ou course dure']);actions.push(['Séance','Récupération et technique sans douleur']);actions.push(['À faire','Préviens un adulte ou le staff si cela persiste'])}
- else if(sleep&&sleep<6.5){level='ROUGE';headline='La récupération est insuffisante.';reasons.push(`Seulement ${sleep} h de sommeil`);actions.push(['Volume','Réduction d’environ 50 %']);actions.push(['Vitesse','Suppression des efforts maximaux']);actions.push(['Priorité','Sommeil et hydratation'])}
- else{
-   if((sleep&&sleep<8)||fatigue>=6||soreness>=6||load3>1500){level='ORANGE';headline='On garde la qualité, mais on réduit la charge.'}
-   if(sleep&&sleep<8){reasons.push(`Sommeil court : ${sleep} h`);actions.push(['Échauffement','Ajoute 3 minutes de mobilité douce'])}
-   if(fatigue>=6){reasons.push(`Fatigue ${fatigue}/10`);actions.push(['Volume','Retire la dernière série de chaque bloc intense'])}
-   if(soreness>=6){reasons.push(`Courbatures ${soreness}/10`);actions.push(['Explosivité','Pas de répétition supplémentaire'])}
+ else if(sleep!==null&&sleep<6.5){level='ROUGE';headline='La récupération est insuffisante.';reasons.push(`Seulement ${sleep} h de sommeil`);actions.push(['Volume','Réduction d’environ 50 %']);actions.push(['Vitesse','Suppression des efforts maximaux']);actions.push(['Priorité','Sommeil et hydratation'])}
+ else if(!missing.length){
+   level='VERT';headline='Tu peux suivre la séance prévue.';
+   if((sleep!==null&&sleep<8)||(fatigue!==null&&fatigue>=6)||(soreness!==null&&soreness>=6)||load3>1500){level='ORANGE';headline='On garde la qualité, mais on réduit la charge.'}
+   if(sleep!==null&&sleep<8){reasons.push(`Sommeil court : ${sleep} h`);actions.push(['Échauffement','Ajoute 3 minutes de mobilité douce'])}
+   if(fatigue!==null&&fatigue>=6){reasons.push(`Fatigue ${fatigue}/10`);actions.push(['Volume','Retire la dernière série de chaque bloc intense'])}
+   if(soreness!==null&&soreness>=6){reasons.push(`Courbatures ${soreness}/10`);actions.push(['Explosivité','Pas de répétition supplémentaire'])}
    if(load3>1500){reasons.push(`Charge élevée sur 3 jours : ${load3}`);actions.push(['Récupération','Repos complet entre les répétitions'])}
    if(w.temp>=30){reasons.push(`Chaleur : ${w.temp} °C`);actions.push(['Horaire',`Séance conseillée à ${trainingTime()}`]);actions.push(['Hydratation','Petites prises régulières'])}
    if(!reasons.length){reasons.push('Sommeil, fatigue, douleur et charge compatibles');actions.push(['Objectif','Exécute la séance avec qualité']);actions.push(['Technique',objective()[1]]);actions.push(['Récupération','Débrief et repas après la séance'])}
- }
- if(motivation&&motivation<=4){reasons.push(`Motivation basse : ${motivation}/10`);actions.push(['Mental','Commence par un seul bloc, puis réévalue'])}
+ }else{reasons.push(`Données manquantes : ${missing.join(', ')}`);actions.push(['Check-in','Renseigne uniquement les valeurs réelles du jour'])}
+ if(motivation!==null&&motivation<=4){reasons.push(`Motivation basse : ${motivation}/10`);actions.push(['Mental','Commence par un seul bloc, puis réévalue'])}
  const message=`${reasons.join(' • ')}. ${headline}`;
  return{level,headline,message,actions:actions.slice(0,6),load3,load7,plan};
 }
@@ -68,7 +73,7 @@ function renderCoach(){
  const a=coachAnalysis();
  headline.textContent=a.headline;
  status.textContent=a.level;
- status.className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':'bad');
+ status.className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':a.level==='GRIS'?'':'bad');
  message.textContent=a.message;
  adjustments.innerHTML=a.actions.map(x=>`<div class="coach-adjustment"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
 }
@@ -290,7 +295,7 @@ async function loadCareerStable(){
  }
 }
 
-function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach()}
+function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}})}
 window.addEventListener('error',e=>{$('fatalError').classList.remove('hidden');$('fatalError').innerHTML=`<h2>Erreur détectée</h2><p>${e.message}</p><p>Recharge la page : tes données restent sauvegardées.</p>`});
 bind();renderAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(console.error);
 setTimeout(loadCareerStable,0);
@@ -351,6 +356,8 @@ function bootV1(){
    onSaved:()=>{renderAll();loadNovaDashboard();loadNovaMemory();toast('Check-in enregistré')}
   });
   renderInterfaceSettings($('interfaceSettingsRoot'));
+  renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});
+  installPersonalUX({showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()},showProfilePanel});
  }catch(error){
   console.error('Initialisation V1:',error);
  }
