@@ -1,10 +1,11 @@
-NEXT LEVEL 10 — V1.6.0 — SPRINT 1
+NEXT LEVEL 10 — V3.4.7 — PLANNING INTELLIGENT
 
-Cette archive contient une vraie évolution de la V1.5 :
-- récupération intelligente ;
-- objectifs quotidiens ;
-- recommandations nutritionnelles ;
-- badges automatiques ;
-- PWA hors ligne mise à jour.
+Le planning s’adapte désormais à la météo, au sommeil, à la fatigue, aux douleurs,
+à la charge récente et au programme Domtac.
 
-Déployer tout le contenu à la racine du site.
+Déploiement Cloudflare Pages :
+1. Décompresse le ZIP.
+2. Dans Workers & Pages, choisis ton projet.
+3. Crée un nouveau déploiement par upload direct.
+4. Envoie le dossier next_level_10_3_4_7_planning_intelligent.
+5. Actualise l’application dans Safari.

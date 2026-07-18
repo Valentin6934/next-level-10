@@ -8,117 +8,112 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
-<title>Next Level 10 — 1.6.0</title>
+<title>Next Level 10 — 3.4.7</title>
 </head>
 <body>
-<div class="splash" aria-hidden="true"><div class="splash-mark">10</div><strong>NEXT LEVEL 10</strong><span>Bienvenue <span data-player-name>Valentin</span></span></div>
+<div class="splash" aria-hidden="true"><div class="splash-mark">10</div><strong>NEXT LEVEL 10</strong><span>Bienvenue Valentin</span></div>
 <div id="fatalError" class="fatal hidden"></div>
-<div id="onboardingRoot"></div>
-<div id="appUpdateRoot"></div>
 
 <div class="app-shell">
   <aside class="side">
     <div class="brand">
       <div class="brand-mark">10</div>
-      <div><strong>NEXT LEVEL 10</strong><span><span data-player-name>VALENTIN</span> • PLAYER MODE</span></div>
+      <div><strong>NEXT LEVEL 10</strong><span>VALENTIN • PREP MODE</span></div>
     </div>
     <nav id="nav">
-      <button class="active" data-page="home"><span>◉</span><b>NOVA</b></button>
-      <button data-page="calendar"><span>▦</span><b>Planning</b></button>
+      <button class="active" data-page="home"><span>⌂</span><b>Accueil</b></button>
+      <button data-page="session"><span>▶</span><b>Séance</b></button>
       <button data-page="progress"><span>↗</span><b>Progression</b></button>
       <button data-page="profile"><span>◎</span><b>Profil</b></button>
     </nav>
-    <div class="side-note">TRAIN • LEARN • RECOVER</div><div class="release-badge">V1.6</div>
+    <div class="side-note">TRAIN • LEARN • RECOVER</div>
   </aside>
 
   <main>
     <section id="page-home" class="page active">
-      <header class="nova-home-head">
+      <header class="hero premium-hero">
         <div>
-          <div class="eyebrow">NEXT LEVEL 10 • <span data-player-name>VALENTIN</span></div>
-          <h1>Ton coach personnel.</h1>
-          <p>Tout ce qui compte aujourd’hui, sans menus inutiles.</p>
+          <div class="eyebrow">BONJOUR VALENTIN 👋</div>
+          <h1>Ton été. Ton niveau. Ton objectif.</h1>
+          <p>FC Domtac • N°10 • U17 • Objectif U18 R1</p>
         </div>
         <span id="homeDate" class="pill"></span>
       </header>
 
-      <div id="personalCockpitRoot"></div>
-      <div id="novaCoachRoot"></div>
-      <div id="sprintOneRoot" class="gap"></div>
-
-      <section id="novaDashboardRoot" class="nova-home-primary secondary-coach-card">
-        <div class="notice"><b>CHARGEMENT DE NOVA</b></div>
-      </section>
-
-      <div class="home-command-grid compact-command-grid">
-        <button class="home-command primary-command redundant-session-command" data-open-page="session">
-          <span>▶</span><div><b>Commencer la séance</b><small id="homeSessionTitle"></small></div>
-        </button>
-        <button class="home-command" data-open-page="calendar">
-          <span>▦</span><div><b>Voir mon planning</b><small>Journée et calendrier</small></div>
-        </button>
-        <button class="home-command" data-open-page="progress">
-          <span>↗</span><div><b>Ma progression</b><small>Notes, tests et performances</small></div>
-        </button>
-        <button class="home-command" id="homeOpenCheckin">
-          <span>＋</span><div><b>Compléter mes données</b><small>Sommeil, fatigue et douleur</small></div>
-        </button>
+      <div class="home-showcase">
+        <article class="identity-card">
+          <div class="identity-card__shine"></div>
+          <div class="identity-top"><span>MOC</span><span>FC DOMTAC</span></div>
+          <div class="identity-rating"><strong id="overallRating">50</strong><small>NOTE</small></div>
+          <div class="identity-silhouette">V</div>
+          <div class="identity-name">VALENTIN</div>
+          <div class="identity-meta"><span>16 ANS</span><span>DROITIER</span><span>1M68</span></div>
+        </article>
+        <div class="dashboard-stack">
+          <div class="metrics premium-metrics">
+            <article><small>XP TOTAL</small><strong id="homeXp">0</strong><span>Progression</span></article>
+            <article><small>SÉANCES</small><strong id="homeSessions">0</strong><span>Validées</span></article>
+            <article><small>RÉCUPÉRATION</small><strong id="recoveryStatus">—</strong><span>État du jour</span></article>
+          </div>
+          <article class="target-card">
+            <div><span class="eyebrow">OBJECTIF</span><h2>U18 R1</h2><p>Construire un numéro 10 plus juste, plus explosif et plus fiable.</p></div>
+            <div class="target-ring"><span>R1</span></div>
+          </article>
+        </div>
       </div>
 
-      <article class="home-today-strip">
-        <div>
-          <small>AUJOURD’HUI</small>
-          <strong id="homeSessionSummary"></strong>
-          <div id="homeObjective" class="home-mission"></div>
+      <div class="grid two gap">
+        <article class="panel feature">
+          <div class="eyebrow">AUJOURD’HUI</div>
+          <h2 id="homeSessionTitle"></h2>
+          <p id="homeSessionSummary"></p>
+          <div id="homeObjective" class="objective"></div>
+          <button class="primary" data-open-page="session">COMMENCER</button>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">ÉTAT DE PRÉPARATION</div>
+          <div id="homeReadiness" class="notice"></div>
+          <div id="dailyChecklist" class="checklist"></div>
+      <div id="dayCompletionBar" class="day-completion-bar"></div>
+        </article>
+      </div>
+
+      <div id="dailyChallengeRoot" class="gap"></div>
+
+      <article class="panel gap coach-card">
+        <div class="actions between">
+          <div><div class="eyebrow">COACH DU JOUR</div><h2 id="coachHeadline"></h2></div>
+          <span id="coachStatus" class="pill"></span>
         </div>
-        <div class="home-mini-stats">
-          <span><small>XP</small><b id="homeXp">0</b></span>
-          <span><small>SÉANCES</small><b id="homeSessions">0</b></span>
-          <span><small>ÉTAT</small><b id="recoveryStatus">—</b></span>
-        </div>
+        <p id="coachMessage"></p>
+        <div id="coachAdjustments" class="coach-adjustments"></div>
+        <button id="refreshCoach" class="secondary">RÉANALYSER MA JOURNÉE</button>
       </article>
 
       <div id="smartPlanningHome"></div>
-      <div id="dailyChallengeRoot" class="gap"></div>
 
-      <article class="home-day-preview">
-        <div class="actions between">
-          <div><div class="eyebrow">PROCHAINES ÉTAPES</div><h2>Ma journée</h2></div>
-          <button id="openDayPlanner" class="secondary">TOUT VOIR</button>
-        </div>
-        <div id="homeTimeline" class="mini-timeline"></div>
-      </article>
-
-      <div class="legacy-home-data" aria-hidden="true">
-        <strong id="overallRating">50</strong>
-        <div id="homeReadiness"></div>
-        <div id="dailyChecklist"></div>
-        <div id="dayCompletionBar"></div>
-        <input id="weatherTemp" type="number" value="24">
-        <input id="weatherHumidity" type="number" value="50">
-        <div id="weatherAdvice"></div>
-        <button id="weatherLocation"></button>
-        <button id="openCalendar"></button>
+      <div class="grid two gap">
+        <article class="panel">
+          <div class="eyebrow">MÉTÉO</div>
+          <div class="fields">
+            <label>Température<input id="weatherTemp" type="number" value="24"></label>
+            <label>Humidité<input id="weatherHumidity" type="number" value="50"></label>
+          </div>
+          <div id="weatherAdvice" class="notice"></div>
+          <button id="weatherLocation" class="secondary">UTILISER MA POSITION</button>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">MA JOURNÉE</div>
+          <div id="homeTimeline" class="mini-timeline"></div>
+          <div class="actions"><button id="openDayPlanner" class="secondary">EMPLOI DU TEMPS</button><button id="openCalendar" class="primary">CALENDRIER</button></div>
+        </article>
       </div>
     </section>
 
-    <section id="page-nova-chat" class="page">
-      <header class="page-head nova-chat-page-head">
-        <div>
-          <div class="eyebrow">NOVA • COACH PERSONNEL</div>
-          <h1>Conversation</h1>
-          <p>NOVA utilise uniquement les données que tu as réellement enregistrées.</p>
-        </div>
-        <button id="closeNovaChatPage" class="secondary">RETOUR</button>
-      </header>
-      <div id="novaConversationRoot">
-        <div class="notice"><b>CHARGEMENT DE LA CONVERSATION</b></div>
-      </div>
-    </section>
 
     <section id="page-calendar" class="page">
       <header class="page-head calendar-head">
-        <div><div class="eyebrow">PLANNING PERSONNEL</div><h1>Calendrier intelligent</h1><p>Ton calendrier, tes séances et tes journées de progression.</p></div>
+        <div><div class="eyebrow">PRÉPARATION ESTIVALE</div><h1>Calendrier intelligent</h1><p>Toute ta préparation du 23 juillet au 6 septembre, avec le détail de chaque journée.</p></div>
         <button id="calendarBack" class="secondary">RETOUR</button>
       </header>
 
@@ -169,10 +164,9 @@
 
     <section id="page-progress" class="page">
       <header class="page-head">
-        <div><div class="eyebrow">PROGRESSION RÉELLE</div><h1>Profil et progression</h1><p>Les notes évoluent uniquement avec des preuves : régularité, tests, qualité du suivi et récupération.</p></div>
+        <div><div class="eyebrow">PROGRESSION RÉELLE</div><h1>Ton profil de joueur</h1><p>Les notes évoluent uniquement avec des preuves : régularité, tests, qualité du suivi et récupération.</p></div>
         <span id="ratingConfidence" class="pill"></span>
       </header>
-      <div id="novaMemoryRoot" class="gap"></div>
       <div id="careerStableRoot"></div>
       <div id="performanceCenterRoot" class="gap"></div>
       <div id="playerCard" class="player-card"></div>
@@ -204,18 +198,9 @@
 
     <section id="page-profile" class="page">
       <header class="page-head">
-        <div><div class="eyebrow">CENTRE PERSONNEL</div><h1>Outils et réglages</h1><p>Les fonctions secondaires restent disponibles sans encombrer l’accueil.</p></div>
+        <div><div class="eyebrow">PROFIL</div><h1>Tout ce qui soutient ta progression</h1></div>
       </header>
-      <div class="profile-hub">
-        <button data-profile-target="day"><span>▦</span><b>Ma journée</b><small>Planning, repas et météo</small></button>
-        <button data-profile-target="tracking"><span>＋</span><b>Check-in</b><small>Sommeil, fatigue et ressenti</small></button>
-        <button data-profile-target="nutrition"><span>◒</span><b>Nutrition</b><small>Repas et hydratation</small></button>
-        <button data-profile-target="video"><span>▶</span><b>Vidéo</b><small>Analyses et historique</small></button>
-        <button data-profile-target="pain"><span>!</span><b>Santé</b><small>Douleurs et décisions</small></button>
-        <button data-profile-target="settings"><span>⚙</span><b>Réglages</b><small>Données et notifications</small></button>
-      </div>
-
-      <div class="profile-tabs compact-tabs" id="profileTabs">
+      <div class="profile-tabs" id="profileTabs">
         <button class="active" data-panel="day">Ma journée</button>
         <button data-panel="nutrition">Nutrition</button>
         <button data-panel="tracking">Suivi</button>
@@ -317,8 +302,6 @@
       </section>
 
       <section id="profile-settings" class="profile-panel">
-        <div id="playerProfileSettings" class="gap"></div>
-        <div id="interfaceSettingsRoot" class="gap"></div>
         <div class="grid two">
           <article class="panel">
             <div class="eyebrow">NOTIFICATIONS</div>
@@ -337,25 +320,10 @@
             <div class="actions"><button id="buildCoach" class="primary">GÉNÉRER</button><button id="copyCoach" class="secondary">COPIER</button></div>
           </article>
         </div>
-        <article class="panel gap product-status-panel">
-          <div class="actions between">
-            <div><div class="eyebrow">NEXT LEVEL 10</div><h3>Version 1.6.0 Intelligence Edition</h3></div>
-            <span class="pill">LOCAL-FIRST</span>
-          </div>
-          <p>Tes données restent dans ton navigateur, sauf si tu les exportes volontairement.</p>
-          <div class="product-status-grid">
-            <span><b>20+</b> modules</span>
-            <span><b>PWA</b> installable</span>
-            <span><b>Offline</b> interface</span>
-            <span><b>NOVA</b> local</span>
-          </div>
-        </article>
       </section>
     </section>
   </main>
 </div>
-<div id="novaHubRoot"></div>
-<div id="quickCheckinRoot"></div>
 <div id="toast" class="toast"></div>
 <script type="module" src="app/main.js"></script>
 </body>

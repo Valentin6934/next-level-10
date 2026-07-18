@@ -1,14 +1,12 @@
-# CHANGELOG
+# CHANGELOG — V3.4.7
 
-## 1.6.0 — Sprint 1 Intelligence
-- Nouveau tableau Intelligence sur l’accueil.
-- Recovery Intelligence : score de récupération et recommandation adaptative.
-- Daily Objectives : objectifs persistants et contextualisés.
-- Nutrition Intelligence : cibles d’eau, protéines et glucides.
-- Achievements Engine : premiers badges automatiques.
-- Schéma local migré en version 2 sans supprimer les données existantes.
-- Cache PWA versionné et nouveaux modules disponibles hors ligne.
-
-## 1.5.0 — PWA Performance & Mobile
-- Installation et mise à jour PWA améliorées.
-- Interface mobile et accessibilité renforcées.
+## Planning intelligent
+- Analyse météo, sommeil, fatigue, douleurs et charge récente.
+- Choix automatique de l’horaire de séance.
+- Respect des horaires imposés par le club.
+- Volume normal, réduit ou récupération.
+- Alternative intérieure en cas de pluie/vent.
+- Recalcul de la collation, de l’analyse vidéo, du dîner et du coucher.
+- Objectif d’hydratation.
+- Boutons pour accepter ou refuser l’adaptation.
+- Explication transparente de chaque décision.

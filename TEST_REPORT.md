@@ -1,20 +1,17 @@
-# TEST REPORT — V1.6.0 Sprint 1
+# TEST REPORT — V3.4.7
 
-Date : 2026-07-18
+## Vérifications automatiques
+- Syntaxe de tous les modules JavaScript : OK.
+- Module planning ajouté au service worker : OK.
+- Version manifeste : OK.
+- ZIP prêt pour hébergement statique : OK.
 
-## Vérifications effectuées
-- Syntaxe JavaScript validée avec `node --check` pour tous les modules `app/*.js` et `sw.js`.
-- `manifest.webmanifest` analysé avec succès comme JSON.
-- Version 1.6.0 vérifiée dans l’interface, la release et le service worker.
-- Nouveaux modules ajoutés au cache PWA.
-- Migration du stockage local vers le schéma 2 avec conservation des anciennes données.
-- Intégration du tableau Sprint 1 dans la page d’accueil.
-
-## Nouveaux modules
-- `app/recovery-intelligence.js`
-- `app/daily-objectives.js`
-- `app/nutrition-intelligence.js`
-- `app/achievements.js`
-- `app/sprint-one.js`
-
-Résultat : contrôles statiques réussis.
+## Tests à réaliser sur iPhone
+- Accepter puis refuser le planning.
+- Vérifier le maintien d’un horaire club.
+- Simuler 35 °C.
+- Simuler fatigue 8/10.
+- Simuler douleur importante.
+- Vérifier l’alternative intérieure.
+- Vérifier l’emploi du temps après rechargement.
+- Vérifier largeur 320 px.
