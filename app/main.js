@@ -12,6 +12,7 @@ import {renderNovaHub,renderQuickCheckin,renderInterfaceSettings} from './nova-h
 import {renderPersonalCockpit,installPersonalUX,rememberPage} from './personal-ui.js';
 import {renderNovaCoach} from './nova-coach.js';
 import {installPwaUX,registerServiceWorker} from './pwa.js';
+import {renderSprintOne} from './sprint-one.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -299,7 +300,7 @@ async function loadCareerStable(){
  }
 }
 
-function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage})}
+function renderAll(){renderSprintOne($('sprintOneRoot'));renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage})}
 window.addEventListener('error',e=>{$('fatalError').classList.remove('hidden');$('fatalError').innerHTML=`<h2>Erreur détectée</h2><p>${e.message}</p><p>Recharge la page : tes données restent sauvegardées.</p>`});
 bind();renderAll();installPwaUX();registerServiceWorker().catch(console.error);
 setTimeout(loadCareerStable,0);
