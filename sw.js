@@ -1,5 +1,5 @@
 const VERSION='1.6.0';
-const STATIC_CACHE=`nl10-static-${VERSION}`;
+const STATIC_CACHE=`nl10-static-${VERSION}-s32`; 
 const RUNTIME_CACHE=`nl10-runtime-${VERSION}`;
 const APP_SHELL=[
   "./",
@@ -28,6 +28,8 @@ const APP_SHELL=[
   "./app/release.js",
   "./app/session-video.js",
   "./app/sprint-one.js",
+  "./app/sprint-two.js",
+  "./app/sprint-three-two.js",
   "./app/recovery-intelligence.js",
   "./app/daily-objectives.js",
   "./app/achievements.js",
@@ -59,10 +61,12 @@ self.addEventListener('fetch',event=>{
     }).catch(()=>caches.match(request).then(hit=>hit||caches.match('./index.html'))));
     return;
   }
-  event.respondWith(caches.match(request).then(hit=>hit||fetch(request).then(response=>{
-    if(response&&response.ok){const copy=response.clone();caches.open(RUNTIME_CACHE).then(cache=>cache.put(request,copy));}
-    return response;
-  })));
+  const isCode=['script','style','worker'].includes(request.destination);
+  if(isCode){
+    event.respondWith(fetch(request).then(response=>{if(response.ok){const copy=response.clone();caches.open(STATIC_CACHE).then(cache=>cache.put(request,copy));}return response;}).catch(()=>caches.match(request)));
+    return;
+  }
+  event.respondWith(caches.match(request).then(hit=>{const network=fetch(request).then(response=>{if(response&&response.ok){const copy=response.clone();caches.open(RUNTIME_CACHE).then(cache=>cache.put(request,copy));}return response;});return hit||network;}));
 });
 
 self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')self.skipWaiting();});

@@ -1,17 +1,11 @@
-# Rapport de test — V1.6.0 Sprint 2
+# Rapport de tests — V1.6 Sprint 3.2
 
-- Syntaxe JavaScript validée avec `node --check` pour `main.js`, `storage.js`, `sprint-two.js` et `sw.js`.
-- Dépendances locales contrôlées : aucun import manquant.
-- Racine `sprintTwoRoot` présente et reliée à `renderSprintTwo`.
-- Cache PWA mis à jour avec le module Sprint 2.
-- Migration du stockage passée au schéma 3.
+- Import de tous les modules JavaScript : validé par contrôle syntaxique.
+- Migration du stockage vers le schéma 4 : validée.
+- Nutrition : calculs, validation de repas et persistance de la liste de courses vérifiés statiquement.
+- Badges : évaluation, progression et déblocage vérifiés statiquement.
+- Statistiques avancées : agrégations 5 semaines et tendances intégrées.
+- PWA : liste du shell complète, stratégie network-first pour le code et fallback offline présents.
+- Intégrité des archives ZIP : vérifiée.
 
-Tests fonctionnels à réaliser dans un navigateur : sauvegarde Recovery Live, navigation des boutons NOVA, affichage adaptatif mobile et installation PWA.
-
-
-## Sprint 3.1
-- Imports ES modules vérifiés.
-- Syntaxe JavaScript contrôlée avec Node.js.
-- Test de création et lecture d'archive ZIP.
-- Vérification des références de fichiers du service worker.
-- Contrôle des scénarios récupération : données absentes, charge stable, charge élevée et signal douleur.
+Limite : aucun navigateur graphique n'est disponible dans cet environnement ; les interactions ont donc été contrôlées par analyse statique et tests Node.

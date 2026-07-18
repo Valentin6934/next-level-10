@@ -30,3 +30,10 @@
 - Performance Center affiche la régularité, l'équilibre de charge et le score de récupération.
 - Corrections de calcul sur les valeurs absentes et les dates locales.
 - Cache PWA renouvelé pour forcer le chargement des modules stabilisés.
+
+## Sprint 3.2
+- Nutrition intelligente selon l'heure, le type de journée et le profil du joueur.
+- Validation du repas courant, objectifs hydriques/macronutritionnels et liste de courses persistante.
+- Badges réellement évalués avec progression et notification lors du déblocage.
+- Statistiques avancées : forme, régularité, charge, récupération et tendances hebdomadaires.
+- Service Worker optimisé : réseau prioritaire pour le code, cache de secours et nouveau cache Sprint 3.2.
