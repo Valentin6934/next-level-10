@@ -1,17 +1,17 @@
-# TEST REPORT — V1.5.0
+# Rapport de test — V1.6.0 Sprint 2
 
-## Contrôles automatisés effectués
+- Syntaxe JavaScript validée avec `node --check` pour `main.js`, `storage.js`, `sprint-two.js` et `sw.js`.
+- Dépendances locales contrôlées : aucun import manquant.
+- Racine `sprintTwoRoot` présente et reliée à `renderSprintTwo`.
+- Cache PWA mis à jour avec le module Sprint 2.
+- Migration du stockage passée au schéma 3.
 
-- Syntaxe JavaScript vérifiée sur tous les fichiers `app/*.js` et `sw.js` avec Node.js.
-- Manifeste JSON validé.
-- Tous les fichiers référencés par le service worker sont présents.
-- Cohérence de version 1.5.0 vérifiée dans `index.html`, `app/release.js` et `sw.js`.
-- Archive ZIP testée après génération.
+Tests fonctionnels à réaliser dans un navigateur : sauvegarde Recovery Live, navigation des boutons NOVA, affichage adaptatif mobile et installation PWA.
 
-## Contrôles manuels recommandés en Preview
 
-- Installation PWA sur iPhone/Android.
-- Premier lancement hors-ligne après une visite connectée.
-- Mise à jour depuis une installation V1.4.
-- Parcours NOVA, planning, séance, progression, profil et vidéo.
-- Export/import des données locales.
+## Sprint 3.1
+- Imports ES modules vérifiés.
+- Syntaxe JavaScript contrôlée avec Node.js.
+- Test de création et lecture d'archive ZIP.
+- Vérification des références de fichiers du service worker.
+- Contrôle des scénarios récupération : données absentes, charge stable, charge élevée et signal douleur.

@@ -1,15 +1,32 @@
-# CHANGELOG — Next Level 10
+# Changelog
+
+## 1.6.0 — Sprint 2
+- NOVA Coach 2.0 avec recommandation contextualisée.
+- Recovery Live interactif avec sauvegarde du sommeil, de la fatigue et des courbatures.
+- Nutrition contextuelle selon l’heure et le type de journée, avec liste de courses.
+- Performance Dashboard synthétique (séances, charge, sommeil, XP).
+- Progression et badges mis en avant.
+- Cache PWA Sprint 2 et migration du stockage en schéma 3.
+
+# CHANGELOG
+
+## 1.6.0 — Sprint 1 Intelligence
+- Nouveau tableau Intelligence sur l’accueil.
+- Recovery Intelligence : score de récupération et recommandation adaptative.
+- Daily Objectives : objectifs persistants et contextualisés.
+- Nutrition Intelligence : cibles d’eau, protéines et glucides.
+- Achievements Engine : premiers badges automatiques.
+- Schéma local migré en version 2 sans supprimer les données existantes.
+- Cache PWA versionné et nouveaux modules disponibles hors ligne.
 
 ## 1.5.0 — PWA Performance & Mobile
+- Installation et mise à jour PWA améliorées.
+- Interface mobile et accessibilité renforcées.
 
-- Version harmonisée dans l'interface, le manifeste, le module de publication et le cache.
-- Nouveau gestionnaire PWA (`app/pwa.js`) : installation, état hors-ligne et détection des mises à jour.
-- Service worker restructuré avec caches statique et dynamique séparés.
-- Navigation hors-ligne sécurisée avec repli vers `index.html`.
-- Nettoyage automatique des anciens caches lors de l'activation.
-- Optimisations mobiles : safe areas iPhone, focus visible, réduction des animations et meilleur comportement tactile.
-- Optimisation de rendu des pages inactives avec `content-visibility`.
 
-## 1.4.0
-
-- NOVA Video Lab : catalogue, missions guidées et historique d'analyse.
+## V1.6.0 — Sprint 3.1
+- NOVA Coach priorise désormais les missions selon récupération, douleur et charge sur 28 jours.
+- Recovery Intelligence ajoute un niveau de confiance, une tendance sommeil et un ratio de charge aiguë/chronique.
+- Performance Center affiche la régularité, l'équilibre de charge et le score de récupération.
+- Corrections de calcul sur les valeurs absentes et les dates locales.
+- Cache PWA renouvelé pour forcer le chargement des modules stabilisés.

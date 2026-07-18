@@ -1,11 +1,5 @@
-# Next Level 10 — V1.5.0
+# Next Level 10 V1.6.0 — Sprint 2
 
-Application PWA locale de préparation football avec NOVA, planning, suivi, progression, nutrition et analyse vidéo.
+PWA locale de coaching football. Le Sprint 2 ajoute NOVA Coach 2.0, Recovery Live, Nutrition contextuelle et un tableau de bord de performance.
 
-## Installation
-
-Servir le dossier avec un serveur HTTPS ou local, puis ouvrir `index.html`. L'installation PWA est proposée par le navigateur compatible.
-
-## Données
-
-Les données sportives restent dans le stockage local du navigateur sauf export volontaire.
+Ouvrir `index.html` via un serveur HTTP local ou déployer le dossier sur GitHub Pages.
