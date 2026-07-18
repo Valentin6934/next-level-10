@@ -1,5 +1,5 @@
 const VERSION='1.6.0';
-const STATIC_CACHE=`nl10-static-${VERSION}-s32`; 
+const STATIC_CACHE=`nl10-static-${VERSION}-s33`; 
 const RUNTIME_CACHE=`nl10-runtime-${VERSION}`;
 const APP_SHELL=[
   "./",
@@ -30,6 +30,7 @@ const APP_SHELL=[
   "./app/sprint-one.js",
   "./app/sprint-two.js",
   "./app/sprint-three-two.js",
+  "./app/stability.js",
   "./app/recovery-intelligence.js",
   "./app/daily-objectives.js",
   "./app/achievements.js",
@@ -43,7 +44,7 @@ const APP_SHELL=[
 ];
 
 self.addEventListener('install',event=>{
-  event.waitUntil(caches.open(STATIC_CACHE).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
+  event.waitUntil(caches.open(STATIC_CACHE).then(async cache=>{for(const asset of APP_SHELL){try{await cache.add(asset)}catch(error){console.warn('Cache ignoré',asset,error)}}}).then(()=>self.skipWaiting()));
 });
 
 self.addEventListener('activate',event=>{

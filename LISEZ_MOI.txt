@@ -1,4 +1,4 @@
-NEXT LEVEL 10 — V1.6.0 SPRINT 3.1
+NEXT LEVEL 10 — V1.6.0 SPRINT 3.3 FINAL
 
-Cette livraison stabilise NOVA Coach, Recovery Intelligence et Performance Center.
-Ouvre index.html via un serveur local ou déploie le dossier à la racine de ton hébergement.
+Ouvrez le projet avec un serveur HTTP pour profiter correctement de la PWA.
+Cette livraison finalise la V1.6 : stabilité, stockage, cache hors ligne, documentation et contrôles techniques.

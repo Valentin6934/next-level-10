@@ -37,3 +37,11 @@
 - Badges réellement évalués avec progression et notification lors du déblocage.
 - Statistiques avancées : forme, régularité, charge, récupération et tendances hebdomadaires.
 - Service Worker optimisé : réseau prioritaire pour le code, cache de secours et nouveau cache Sprint 3.2.
+
+## V1.6.0 — Sprint 3.3 final
+- Ajout d'une garde de stabilité pour les erreurs JavaScript et les promesses rejetées.
+- Vérification du stockage local au démarrage et message de récupération non bloquant.
+- Journal local des 20 dernières erreurs pour faciliter le diagnostic.
+- Schéma de stockage migré en version 5 avec gestion des erreurs de quota.
+- Service Worker Sprint 3.3 avec cache renouvelé et pré-cache résilient.
+- Documentation et rapport de tests finalisés.

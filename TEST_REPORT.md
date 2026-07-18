@@ -1,11 +1,15 @@
-# Rapport de tests — V1.6 Sprint 3.2
+# Rapport de tests — V1.6 Sprint 3.3
 
-- Import de tous les modules JavaScript : validé par contrôle syntaxique.
-- Migration du stockage vers le schéma 4 : validée.
-- Nutrition : calculs, validation de repas et persistance de la liste de courses vérifiés statiquement.
-- Badges : évaluation, progression et déblocage vérifiés statiquement.
-- Statistiques avancées : agrégations 5 semaines et tendances intégrées.
-- PWA : liste du shell complète, stratégie network-first pour le code et fallback offline présents.
-- Intégrité des archives ZIP : vérifiée.
+Date de génération : 18 juillet 2026
 
-Limite : aucun navigateur graphique n'est disponible dans cet environnement ; les interactions ont donc été contrôlées par analyse statique et tests Node.
+## Contrôles réussis
+
+- Syntaxe vérifiée avec `node --check` sur tous les modules JavaScript et le Service Worker.
+- Manifest Web App analysé et valide en JSON.
+- Toutes les ressources déclarées dans le pré-cache existent dans l’archive.
+- Tous les imports statiques de `app/main.js` pointent vers des fichiers existants.
+- Archive complète et archive de mise à jour ouvertes et contrôlées après génération.
+
+## Limite du contrôle
+
+Les contrôles sont statiques et structurels. Le comportement final doit aussi être validé dans Chrome, Edge ou Safari sur l’appareil cible, notamment l’installation PWA, les notifications et le stockage privé du navigateur.
