@@ -1,5 +1,5 @@
 const KEY='nextLevel10_2_0';
-const SCHEMA_VERSION=4;
+const SCHEMA_VERSION=5;
 
 const defaultPlayer={
   firstName:'Valentin',
@@ -74,7 +74,14 @@ export function loadState(){
 
 export function saveState(state){
   const safe=migrate(state);
-  localStorage.setItem(KEY,JSON.stringify(safe));
+  try{
+    localStorage.setItem(KEY,JSON.stringify(safe));
+    return true;
+  }catch(error){
+    console.error('Sauvegarde impossible:',error);
+    window.dispatchEvent(new CustomEvent('nl10:storage-error',{detail:{message:'Sauvegarde locale impossible'}}));
+    return false;
+  }
 }
 
 export function clearState(){localStorage.removeItem(KEY)}

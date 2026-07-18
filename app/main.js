@@ -15,6 +15,7 @@ import {installPwaUX,registerServiceWorker} from './pwa.js';
 import {renderSprintOne} from './sprint-one.js';
 import {renderSprintTwo} from './sprint-two.js';
 import {renderSprintThreeTwo} from './sprint-three-two.js';
+import {installStabilityGuard,runStartupChecks} from './stability.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
@@ -303,7 +304,8 @@ async function loadCareerStable(){
 }
 
 function renderAll(){renderSprintThreeTwo($('sprintTwoRoot'),{openPage:showPage,toast});renderSprintOne($('sprintOneRoot'));renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage})}
-window.addEventListener('error',e=>{$('fatalError').classList.remove('hidden');$('fatalError').innerHTML=`<h2>Erreur détectée</h2><p>${e.message}</p><p>Recharge la page : tes données restent sauvegardées.</p>`});
+installStabilityGuard();
+runStartupChecks();
 bind();renderAll();installPwaUX();registerServiceWorker().catch(console.error);
 setTimeout(loadCareerStable,0);
 window.addEventListener('nl10:challenge-completed',()=>{try{renderHome();renderProgress()}catch(e){console.error(e)}});
