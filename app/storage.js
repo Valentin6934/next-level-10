@@ -1,5 +1,5 @@
 const KEY='nextLevel10_2_0';
-const SCHEMA_VERSION=3;
+const SCHEMA_VERSION=4;
 
 const defaultPlayer={
   firstName:'Valentin',
@@ -25,7 +25,7 @@ const defaults={
   equipment:{},timerPreferences:{},xp:0,weather:{temp:24,humidity:50},
   notifications:{training:true,meals:true,sleep:true,lead:20,sent:{}},
   app:{installedAt:null,lastVersion:'1.6.0',dismissedUpdates:[]},
-  dailyObjectives:{},achievements:[],sprintTwo:{shopping:{},lastRecoverySave:null}
+  dailyObjectives:{},achievements:[],sprintTwo:{shopping:{},lastRecoverySave:null},sprintThree:{shopping:{}}
 };
 
 const clone=value=>{
@@ -53,7 +53,8 @@ function migrate(raw){
     notifications:{...clone(defaults.notifications),...(s.notifications||{})},
     dailyObjectives:s.dailyObjectives||{},
     achievements:Array.isArray(s.achievements)?s.achievements:[],
-    sprintTwo:{...clone(defaults.sprintTwo),...(s.sprintTwo||{})}
+    sprintTwo:{...clone(defaults.sprintTwo),...(s.sprintTwo||{})},
+    sprintThree:{...clone(defaults.sprintThree),...(s.sprintThree||{})}
   };
   if(!migrated.app.installedAt)migrated.app.installedAt=new Date().toISOString();
   return migrated;
