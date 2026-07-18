@@ -1,4 +1,5 @@
 import {loadState,saveState} from './storage.js';
+import {displayName} from './player.js';
 
 const clamp=(n,min=0,max=100)=>Math.max(min,Math.min(max,Math.round(n)));
 const localDate=()=>{
@@ -106,7 +107,7 @@ export function renderNovaDashboard(root){
    <div class="nova-top">
     <div class="nova-identity">
      <div class="nova-orb"><span>N</span><i></i></div>
-     <div><div class="eyebrow">NOVA</div><h2>${greeting()} Valentin</h2><p>${s.message}</p></div>
+     <div><div class="eyebrow">NOVA</div><h2>${greeting()} ${displayName(state.player)}</h2><p>${s.message}</p></div>
     </div>
     <span class="nova-status">${s.label}</span>
    </div>

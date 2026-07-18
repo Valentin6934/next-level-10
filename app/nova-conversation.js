@@ -1,4 +1,7 @@
 import {loadState,saveState} from './storage.js';
+import {renderVoiceControls,speakText,shouldAutoSpeak} from './voice.js';
+import {buildNovaMemory} from './nova-memory.js';
+import {displayName} from './player.js';
 import {planFor,normalizedDate} from './data.js';
 
 const localDate=()=>{
@@ -78,13 +81,15 @@ function classify(text){
  if(/mange|repas|nutrition|boire|eau|hydrat/.test(t))return'nutrition';
  if(/progr|niveau|note|r1|fort|faible/.test(t))return'progress';
  if(/vidéo|video|analyse|scan|contrôle/.test(t))return'video';
+ if(/match|joue samedi|joue dimanche|joue demain/.test(t))return'match';
+ if(/mission|objectif du jour/.test(t))return'mission';
  if(/demain|prochaine/.test(t))return'tomorrow';
  if(/merci/.test(t))return'thanks';
  return'unknown';
 }
 
 function responseFor(text,state){
- const ctx=todayContext(state),kind=classify(text),miss=missing(ctx),risk=safety(ctx),mem=memorySummary(state);
+ const ctx=todayContext(state),kind=classify(text),miss=missing(ctx),risk=safety(ctx),mem=memorySummary(state),longMemory=buildNovaMemory(state);
  const evidence=[];
  if(ctx.sleep!==null)evidence.push(`sommeil ${ctx.sleep} h`);
  if(ctx.fatigue!==null)evidence.push(`fatigue ${ctx.fatigue}/10`);
@@ -93,7 +98,7 @@ function responseFor(text,state){
  if(ctx.weather?.temp!==undefined)evidence.push(`${ctx.weather.temp} °C`);
 
  if(kind==='greeting'){
-  return `Salut Valentin. ${miss.length?`Il me manque encore ${miss.join(', ')} pour un conseil complet.`:`J’ai assez de données pour t’aider aujourd’hui.`}`;
+  return `Salut ${displayName(state.player)}. ${miss.length?`Il me manque encore ${miss.join(', ')} pour un conseil complet.`:`J’ai assez de données pour t’aider aujourd’hui.`}`;
  }
  if(kind==='pain'){
   if(!ctx.pain)return `Je n’ai aucune donnée douleur aujourd’hui. Ouvre Santé et indique la zone, l’intensité et les éventuels signaux comme gonflement, blocage ou instabilité.`;
@@ -139,6 +144,14 @@ function responseFor(text,state){
   const last=state.videoAnalyses[state.videoAnalyses.length-1];
   return `Ta dernière analyse portait sur « ${last.title} ». La leçon enregistrée est : ${last.lesson||'aucune leçon saisie'}.`;
  }
+ if(kind==='match'){
+  const when=/demain/.test(text.toLowerCase())?'demain':'ce week-end';
+  return `Tu m’indiques un match ${when}. Je ne modifie pas automatiquement ton calendrier, mais je te conseille de protéger les 24 heures précédentes : pas de charge maximale, sommeil prioritaire et hydratation régulière.`;
+ }
+ if(kind==='mission'){
+  const mission=state.novaCoach?.missions?.[ctx.date];
+  return mission?`Ta mission du jour est « ${mission.title} » : ${mission.detail}${mission.completed?' Elle est déjà terminée.':''}`:`Aucune mission n’est encore générée. Retourne sur l’accueil pour que NOVA crée ton plan d’action.`;
+ }
  if(kind==='tomorrow'){
   return ctx.nextMission?`Ta mission suivante est : ${ctx.nextMission}`:`Aucune mission précise n’est encore enregistrée pour demain. Termine le débrief ou l’analyse vidéo pour en créer une.`;
  }
@@ -148,8 +161,8 @@ function responseFor(text,state){
 
 function starterMessage(state){
  const ctx=todayContext(state),miss=missing(ctx);
- if(miss.length)return `Bonjour Valentin. Avant de te conseiller, il me manque : ${miss.join(', ')}.`;
- return `Bonjour Valentin. J’ai analysé tes données du jour. Pose-moi une question sur ta séance ou ta récupération.`;
+ if(miss.length)return `Bonjour ${displayName(state.player)}. Avant de te conseiller, il me manque : ${miss.join(', ')}.`;
+ return `Bonjour ${displayName(state.player)}. J’ai analysé tes données du jour. Pose-moi une question sur ta séance ou ta récupération.`;
 }
 
 export function renderNovaConversation(root){
@@ -165,11 +178,13 @@ export function renderNovaConversation(root){
    <div id="novaConversationMessages" class="nova-conversation-messages">
     ${history.length?history.map(m=>`<div class="conversation-message ${m.role}"><span>${m.role==='nova'?'N':'V'}</span><p>${esc(m.text)}</p></div>`).join(''):`<div class="conversation-message nova"><span>N</span><p>${esc(starterMessage(state))}</p></div>`}
    </div>
+   <div id="novaVoiceRoot"></div>
    <div class="nova-suggested-prompts">
     <button>Est-ce que je peux faire ma séance ?</button>
     <button>Comment est ma récupération ?</button>
     <button>Que sais-tu de ma progression ?</button>
-    <button>Quelle est ma mission suivante ?</button>
+    <button>Quelle est ma mission du jour ?</button>
+    <button>Je joue demain</button>
    </div>
    <form id="novaConversationForm" class="nova-conversation-form">
     <textarea id="novaConversationInput" placeholder="Écris à NOVA…" rows="2"></textarea>
@@ -195,7 +210,19 @@ export function renderNovaConversation(root){
    messages.insertAdjacentHTML('beforeend',`<div class="conversation-message user"><span>V</span><p>${esc(cleaned)}</p></div><div class="conversation-message nova"><span>N</span><p>${esc(answer)}</p></div>`);
    input.value='';
    scroll();
+   if(shouldAutoSpeak())speakText(answer);
   };
+
+  const getLastNovaMessage=()=>{
+   const latest=loadState();
+   const list=(latest.novaConversation||[]).filter(x=>x.role==='nova');
+   return list.length?list[list.length-1].text:starterMessage(latest);
+  };
+  renderVoiceControls(root.querySelector('#novaVoiceRoot'),{
+   onTranscript:text=>{input.value=text},
+   onSubmit:send,
+   getLastNovaMessage
+  });
 
   root.querySelector('#novaConversationForm').onsubmit=e=>{e.preventDefault();send(input.value)};
   root.querySelectorAll('.nova-suggested-prompts button').forEach(b=>b.onclick=()=>send(b.textContent));

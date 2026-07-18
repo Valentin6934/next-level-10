@@ -6,9 +6,17 @@ import {mealTypes,putPhoto,getPhoto,validateMeal,saveFoodReview} from './nutriti
 import * as notify from './notifications.js';
 import {calculateRatings,RATING_NAMES,ratingReason} from './ratings.js';
 import {buildTimerPlan,normalizePlan} from './timer.js';
+import {applyPlayerIdentity,renderOnboarding,renderPlayerSettings} from './player.js';
+import {renderReleaseNotice} from './release.js';
+import {renderNovaHub,renderQuickCheckin,renderInterfaceSettings} from './nova-hub.js';
+import {renderPersonalCockpit,installPersonalUX,rememberPage} from './personal-ui.js';
+import {renderNovaCoach} from './nova-coach.js';
+import {installPwaUX,registerServiceWorker} from './pwa.js';
 
 const $=id=>document.getElementById(id);
 const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)};
+window.addEventListener('nl10:pwa-update',event=>toast(event.detail?.message||'Mise à jour PWA'));
+
 const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const fr=s=>new Date(s+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 const iso=d=>d.toISOString().slice(0,10);
@@ -25,7 +33,15 @@ const objectiveList=[
 ['CHANGE OF PACE','Après un geste réussi, accélère sur trois à cinq mètres.']
 ];
 function objective(){const w=Math.max(0,Math.floor((new Date(normalizedDate())-new Date('2026-07-23'))/(7*86400000)));return objectiveList[w%objectiveList.length]}
-function showPage(name){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$('page-'+name).classList.add('active');document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));scrollTo({top:0,behavior:'smooth'})}
+function showPage(name){
+ const target=$('page-'+name);
+ if(!target){console.warn('Page introuvable:',name);return}
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ target.classList.add('active');
+ document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));
+ rememberPage(name);
+ try{scrollTo({top:0,behavior:'smooth'})}catch{scrollTo(0,0)}
+}
 function painLevel(state){const p=state.pain[today()]||{};if(p.swelling||p.instability||p.locking||+p.run>=5||p.trend==='Pire')return'high';if(+p.run>=2||+p.post>=2)return'mid';return'low'}
 
 function recentDates(count){const out=[];const d=new Date();for(let i=0;i<count;i++){out.push(d.toISOString().slice(0,10));d.setDate(d.getDate()-1)}return out}
@@ -33,22 +49,25 @@ function loadScore(state,days=7){return recentDates(days).reduce((sum,d)=>{const
 function average(values){const v=values.filter(x=>Number.isFinite(x)&&x>0);return v.length?v.reduce((a,b)=>a+b,0)/v.length:0}
 function coachAnalysis(){
  const s=loadState(),c=s.checkins[today()]||{},p=s.pain[today()]||{},w=s.weather,plan=planFor(normalizedDate());
- const sleep=+c.sleep||0,fatigue=+c.fatigue||0,soreness=+c.soreness||0,motivation=+c.motivation||0;
- const load3=loadScore(s,3),load7=loadScore(s,7),pain=painLevel(s);
- const reasons=[],actions=[],status=[];
- let level='VERT',headline='Tu peux suivre la séance prévue.';
+ const has=v=>v!==''&&v!==null&&v!==undefined&&Number.isFinite(Number(v));
+ const sleep=has(c.sleep)?Number(c.sleep):null,fatigue=has(c.fatigue)?Number(c.fatigue):null,soreness=has(c.soreness)?Number(c.soreness):null,motivation=has(c.motivation)?Number(c.motivation):null;
+ const load3=loadScore(s,3),load7=loadScore(s,7),pain=painLevel(s),painKnown=Object.keys(p).length>0;
+ const reasons=[],actions=[],status=[],missing=[];
+ if(sleep===null)missing.push('sommeil');if(fatigue===null)missing.push('fatigue');if(!painKnown)missing.push('douleur');
+ let level='GRIS',headline='Complète ton check-in avant la recommandation.';
  if(pain==='high'){level='ROUGE';headline='Aujourd’hui, on protège ton corps.';reasons.push('Douleur ou signal articulaire important');actions.push(['Intensité','Aucun sprint, saut ou course dure']);actions.push(['Séance','Récupération et technique sans douleur']);actions.push(['À faire','Préviens un adulte ou le staff si cela persiste'])}
- else if(sleep&&sleep<6.5){level='ROUGE';headline='La récupération est insuffisante.';reasons.push(`Seulement ${sleep} h de sommeil`);actions.push(['Volume','Réduction d’environ 50 %']);actions.push(['Vitesse','Suppression des efforts maximaux']);actions.push(['Priorité','Sommeil et hydratation'])}
- else{
-   if((sleep&&sleep<8)||fatigue>=6||soreness>=6||load3>1500){level='ORANGE';headline='On garde la qualité, mais on réduit la charge.'}
-   if(sleep&&sleep<8){reasons.push(`Sommeil court : ${sleep} h`);actions.push(['Échauffement','Ajoute 3 minutes de mobilité douce'])}
-   if(fatigue>=6){reasons.push(`Fatigue ${fatigue}/10`);actions.push(['Volume','Retire la dernière série de chaque bloc intense'])}
-   if(soreness>=6){reasons.push(`Courbatures ${soreness}/10`);actions.push(['Explosivité','Pas de répétition supplémentaire'])}
+ else if(sleep!==null&&sleep<6.5){level='ROUGE';headline='La récupération est insuffisante.';reasons.push(`Seulement ${sleep} h de sommeil`);actions.push(['Volume','Réduction d’environ 50 %']);actions.push(['Vitesse','Suppression des efforts maximaux']);actions.push(['Priorité','Sommeil et hydratation'])}
+ else if(!missing.length){
+   level='VERT';headline='Tu peux suivre la séance prévue.';
+   if((sleep!==null&&sleep<8)||(fatigue!==null&&fatigue>=6)||(soreness!==null&&soreness>=6)||load3>1500){level='ORANGE';headline='On garde la qualité, mais on réduit la charge.'}
+   if(sleep!==null&&sleep<8){reasons.push(`Sommeil court : ${sleep} h`);actions.push(['Échauffement','Ajoute 3 minutes de mobilité douce'])}
+   if(fatigue!==null&&fatigue>=6){reasons.push(`Fatigue ${fatigue}/10`);actions.push(['Volume','Retire la dernière série de chaque bloc intense'])}
+   if(soreness!==null&&soreness>=6){reasons.push(`Courbatures ${soreness}/10`);actions.push(['Explosivité','Pas de répétition supplémentaire'])}
    if(load3>1500){reasons.push(`Charge élevée sur 3 jours : ${load3}`);actions.push(['Récupération','Repos complet entre les répétitions'])}
    if(w.temp>=30){reasons.push(`Chaleur : ${w.temp} °C`);actions.push(['Horaire',`Séance conseillée à ${trainingTime()}`]);actions.push(['Hydratation','Petites prises régulières'])}
    if(!reasons.length){reasons.push('Sommeil, fatigue, douleur et charge compatibles');actions.push(['Objectif','Exécute la séance avec qualité']);actions.push(['Technique',objective()[1]]);actions.push(['Récupération','Débrief et repas après la séance'])}
- }
- if(motivation&&motivation<=4){reasons.push(`Motivation basse : ${motivation}/10`);actions.push(['Mental','Commence par un seul bloc, puis réévalue'])}
+ }else{reasons.push(`Données manquantes : ${missing.join(', ')}`);actions.push(['Check-in','Renseigne uniquement les valeurs réelles du jour'])}
+ if(motivation!==null&&motivation<=4){reasons.push(`Motivation basse : ${motivation}/10`);actions.push(['Mental','Commence par un seul bloc, puis réévalue'])}
  const message=`${reasons.join(' • ')}. ${headline}`;
  return{level,headline,message,actions:actions.slice(0,6),load3,load7,plan};
 }
@@ -58,7 +77,7 @@ function renderCoach(){
  const a=coachAnalysis();
  headline.textContent=a.headline;
  status.textContent=a.level;
- status.className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':'bad');
+ status.className='pill '+(a.level==='VERT'?'ok':a.level==='ORANGE'?'warn':a.level==='GRIS'?'':'bad');
  message.textContent=a.message;
  adjustments.innerHTML=a.actions.map(x=>`<div class="coach-adjustment"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
 }
@@ -152,6 +171,7 @@ setTimeout(loadDailyChallenge,0);
 setTimeout(loadVideoAnalysis,0);
 setTimeout(loadSmartPlanning,0);
 setTimeout(loadNovaDashboard,0);
+setTimeout(loadNovaMemory,0);
 setTimeout(loadPerformanceCenter,0);const s=loadState(),r=calculateRatings(s);$('ratingConfidence').textContent=`Confiance ${r.confidence} • ${r.evidence} preuves`;$('playerCard').innerHTML=`<div class="overall-badge"><div><strong>${r.overall}</strong><span>N°10</span></div></div><div><div class="eyebrow">PROFIL RÉEL</div><h2>Milieu offensif droitier</h2><p class="muted">Les notes ne montent pas avec les XP seuls. Elles utilisent tes tests, ta régularité, tes débriefs, ton sommeil et ta nutrition.</p></div>`;$('ratingsGrid').innerHTML=RATING_NAMES.map(([k,n])=>`<div class="rating-card"><div class="rating-top"><b>${n}</b><strong>${r.ratings[k]}</strong></div><div class="rating-bar"><i style="width:${r.ratings[k]}%"></i></div><small>${ratingReason(k,s)}</small></div>`).join('');const start=new Date(normalizedDate()+'T12:00:00'),day=(start.getDay()+6)%7;start.setDate(start.getDate()-day);const dates=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d.toISOString().slice(0,10)}),load=dates.reduce((a,d)=>{const c=s.checkins[d]||{};return a+(+c.rpe||0)*(+c.minutes||0)},0);$('weekSummary').innerHTML=`<div class="facts"><div class="fact"><b>SÉANCES</b>${dates.filter(d=>s.done[d]).length}/7</div><div class="fact"><b>CHARGE</b>${load}</div><div class="fact"><b>CHECK-INS</b>${dates.filter(d=>s.checkins[d]).length}</div><div class="fact"><b>OBJECTIF</b>${objective()[0]}</div></div>`;$('ratingRules').innerHTML='<ul><li>Les tests donnent les preuves les plus fortes.</li><li>Les séances et débriefs renforcent la confiance des notes.</li><li>Le sommeil et l’alimentation influencent surtout récupération et discipline.</li><li>Une semaine manquée ne fait pas chuter brutalement les notes.</li></ul>';renderTests()}
 function renderTests(){const s=loadState(),scheduled=TEST_DAYS[normalizedDate()];$('testDate').value=today();if(scheduled)$('testPhase').value=scheduled.phase;$('testsHistory').innerHTML=(s.tests||[]).slice().reverse().map(t=>`<div class="test-row"><b>${t.phase} — ${t.name}</b><p>${t.date} • ${t.value} ${t.unit||''}</p><small>${t.conditions||''}</small></div>`).join('')||'<p class="muted">Aucun test enregistré.</p>'}
 function renderDay(){
@@ -174,6 +194,19 @@ function bind(){document.querySelectorAll('#nav button').forEach(b=>b.onclick=()
 
 
 
+
+
+async function loadNovaMemory(){
+ const root=$('novaMemoryRoot');
+ if(!root)return;
+ try{
+   const mod=await import('./nova-memory.js');
+   mod.renderNovaMemory(root);
+ }catch(error){
+   console.error('Mémoire NOVA indisponible:',error);
+   root.innerHTML='<div class="notice"><b class="warn">MÉMOIRE NOVA INDISPONIBLE</b><p>Les autres fonctions restent disponibles.</p></div>';
+ }
+}
 
 async function loadNovaConversation(){
  const root=$('novaConversationRoot');
@@ -266,9 +299,9 @@ async function loadCareerStable(){
  }
 }
 
-function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach()}
+function renderAll(){renderHome();renderSession();renderProgress();renderDay();renderCalendar();renderNutrition().catch(console.error);renderTracking();renderPain();renderNotifications();buildCoach();renderCoach();renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage})}
 window.addEventListener('error',e=>{$('fatalError').classList.remove('hidden');$('fatalError').innerHTML=`<h2>Erreur détectée</h2><p>${e.message}</p><p>Recharge la page : tes données restent sauvegardées.</p>`});
-bind();renderAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(console.error);
+bind();renderAll();installPwaUX();registerServiceWorker().catch(console.error);
 setTimeout(loadCareerStable,0);
 window.addEventListener('nl10:challenge-completed',()=>{try{renderHome();renderProgress()}catch(e){console.error(e)}});
 
@@ -308,3 +341,50 @@ window.addEventListener('nl10:open-nova-chat',()=>{
 document.addEventListener('click',event=>{
  if(event.target.closest('#closeNovaChatPage'))showPage('home');
 });
+
+window.addEventListener('nl10:session-video-completed',()=>{try{loadNovaMemory()}catch(e){console.error(e)}});
+
+function bootV1(){
+ try{
+  applyPlayerIdentity();
+  renderOnboarding($('onboardingRoot'));
+  renderPlayerSettings($('playerProfileSettings'));
+  renderReleaseNotice($('appUpdateRoot'));
+  renderNovaHub($('novaHubRoot'),{
+   openPage:showPage,
+   openProfile:name=>{showPage('profile');showProfilePanel(name)},
+   openConversation:()=>{showPage('nova-chat');loadNovaConversation()},
+   refreshApp:()=>{renderAll();loadNovaDashboard();loadNovaMemory()}
+  });
+  renderQuickCheckin($('quickCheckinRoot'),{
+   onSaved:()=>{renderAll();loadNovaDashboard();loadNovaMemory();toast('Check-in enregistré')}
+  });
+  renderInterfaceSettings($('interfaceSettingsRoot'));
+  renderPersonalCockpit($('personalCockpitRoot'),{openPage:showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()}});renderNovaCoach($('novaCoachRoot'),{openPage:showPage});
+  installPersonalUX({showPage,openConversation:()=>{showPage('nova-chat');loadNovaConversation()},showProfilePanel});
+ }catch(error){
+  console.error('Initialisation V1:',error);
+ }
+}
+window.addEventListener('nl10:player-updated',()=>{
+ try{
+  applyPlayerIdentity();
+  renderPlayerSettings($('playerProfileSettings'));
+  loadNovaDashboard();
+  loadNovaConversation();
+ }catch(error){console.error(error)}
+});
+setTimeout(bootV1,0);
+
+window.addEventListener('nl10:checkin-saved',()=>{
+ try{
+  renderNovaHub($('novaHubRoot'),{
+   openPage:showPage,
+   openProfile:name=>{showPage('profile');showProfilePanel(name)},
+   openConversation:()=>{showPage('nova-chat');loadNovaConversation()},
+   refreshApp:()=>{renderAll();loadNovaDashboard();loadNovaMemory()}
+  });
+ }catch(error){console.error(error)}
+});
+
+window.addEventListener('nl10:coach-updated',()=>{try{renderAll()}catch(e){console.error(e)}});

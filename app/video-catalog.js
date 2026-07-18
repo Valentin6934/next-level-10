@@ -1,93 +1,10 @@
 export const VIDEO_CATALOG=[
- {
-  id:'scan_10',
-  themes:['vision','scan','technique'],
-  title:'Prise d’information avant réception',
-  player:'Milieu offensif — observation libre',
-  url:'https://www.youtube.com/results?search_query=midfielder+scanning+before+receiving+football',
-  duration:15,
-  instruction:'Observe uniquement ce qui se passe avant la réception : scans, orientation du corps et dernier regard.',
-  questions:[
-   'Combien de scans sont faits avant de recevoir ?',
-   'Le dernier scan arrive-t-il juste avant la passe du partenaire ?',
-   'Le contrôle part-il vers l’espace libre ?',
-   'Le joueur peut-il jouer en une ou deux touches ?'
-  ],
-  nextMission:'Scanner deux fois avant chaque contrôle orienté.'
- },
- {
-  id:'control_10',
-  themes:['control','technique','ball'],
-  title:'Orientation du corps et premier contrôle',
-  player:'Milieu offensif — premier contrôle',
-  url:'https://www.youtube.com/results?search_query=football+first+touch+midfielder+body+orientation',
-  duration:15,
-  instruction:'Observe l’angle du bassin, le pied utilisé et la direction du premier contrôle.',
-  questions:[
-   'Le corps est-il ouvert avant la réception ?',
-   'Quel pied contrôle le ballon ?',
-   'Le premier contact gagne-t-il du terrain ?',
-   'Combien de touches avant la passe suivante ?'
-  ],
-  nextMission:'Ouvrir le corps avant chaque réception et jouer vers l’avant.'
- },
- {
-  id:'speed_10',
-  themes:['speed','explosiveness','sprint'],
-  title:'Changement de rythme et premiers appuis',
-  player:'Milieu offensif — accélération',
-  url:'https://www.youtube.com/results?search_query=football+attacking+midfielder+acceleration+change+of+pace',
-  duration:12,
-  instruction:'Observe le moment exact où le joueur déclenche son accélération.',
-  questions:[
-   'Quel geste déclenche le changement de rythme ?',
-   'Combien d’appuis sont vraiment explosifs ?',
-   'Le joueur accélère-t-il avec ou sans ballon ?',
-   'Comment utilise-t-il ses bras ?'
-  ],
-  nextMission:'Après un geste réussi, accélérer franchement sur trois appuis.'
- },
- {
-  id:'movement_10',
-  themes:['endurance','domtac','run','recovery'],
-  title:'Déplacements et disponibilité',
-  player:'Milieu offensif — jeu sans ballon',
-  url:'https://www.youtube.com/results?search_query=attacking+midfielder+off+the+ball+movement+analysis',
-  duration:15,
-  instruction:'Suis le joueur même quand il ne touche pas le ballon.',
-  questions:[
-   'Comment se rend-il disponible entre les lignes ?',
-   'Quand ralentit-il ou accélère-t-il ?',
-   'Se déplace-t-il après avoir passé ?',
-   'Comment économise-t-il ses courses ?'
-  ],
-  nextMission:'Bouger après chaque passe pour recréer une ligne de soutien.'
- },
- {
-  id:'test_10',
-  themes:['test'],
-  title:'Comparer le geste et le protocole',
-  player:'Auto-analyse des tests',
-  url:'https://www.youtube.com/results?search_query=football+10m+sprint+test+technique+slalom+passing+accuracy',
-  duration:10,
-  instruction:'Observe la régularité du protocole et les détails techniques du geste.',
-  questions:[
-   'La position de départ est-elle identique ?',
-   'Le chronométrage commence-t-il toujours au même moment ?',
-   'Le parcours est-il strictement identique ?',
-   'Quel détail technique peut améliorer la qualité sans fausser le test ?'
-  ],
-  nextMission:'Répéter exactement le même protocole au prochain test.'
- }
+ {id:'scan-playmaker',icon:'👀',category:'tactique',skill:'Vision',title:'Scanner avant la réception',focus:'Prise d’information',duration:12,url:'https://www.youtube.com/results?search_query=football+midfielder+scanning+before+receiving',instruction:'Observe uniquement les secondes qui précèdent la réception du ballon.',tags:['scan','orientation','vision'],questions:['Combien de scans le joueur effectue-t-il avant de recevoir ?','À quel moment arrive son dernier regard ?','Que découvre-t-il derrière son épaule ?','Son premier contrôle utilise-t-il cette information ?'],fieldMission:'Sur 20 réceptions, réaliser au moins deux scans avant le contrôle.'},
+ {id:'body-first-touch',icon:'↗️',category:'technique',skill:'Contrôle',title:'Orientation et premier contrôle',focus:'Corps ouvert et contrôle utile',duration:12,url:'https://www.youtube.com/results?search_query=football+first+touch+body+orientation+midfielder',instruction:'Observe le bassin, les épaules, le pied d’appui et la direction du premier contact.',tags:['premier contrôle','corps ouvert','pied opposé'],questions:['Le joueur est-il déjà ouvert avant la passe ?','Quel pied reçoit le ballon et pourquoi ?','Le contrôle éloigne-t-il le ballon de la pression ?','Combien de touches avant l’action suivante ?'],fieldMission:'Réaliser 30 contrôles orientés vers l’espace libre avec le pied opposé.'},
+ {id:'final-pass',icon:'🎯',category:'tactique',skill:'Décision',title:'Créer la passe qui casse une ligne',focus:'Fixer puis libérer',duration:15,url:'https://www.youtube.com/results?search_query=attacking+midfielder+final+pass+decision+making',instruction:'Analyse le déclencheur de la passe et les options disponibles.',tags:['passe finale','fixation','tempo'],questions:['Quelles options existent au moment de la réception ?','Quel adversaire est fixé avant la passe ?','Pourquoi cette passe est-elle préférable ?','Le joueur aurait-il pu jouer plus tôt ?'],fieldMission:'Créer 10 situations : fixer un défenseur puis jouer dans le dos de la ligne.'},
+ {id:'off-ball-10',icon:'🏃',category:'tactique',skill:'Jeu sans ballon',title:'Se rendre disponible entre les lignes',focus:'Déplacements invisibles',duration:15,url:'https://www.youtube.com/results?search_query=attacking+midfielder+off+the+ball+movement+analysis',instruction:'Suis le joueur lorsqu’il ne touche pas le ballon.',tags:['démarquage','interligne','soutien'],questions:['Quand quitte-t-il sa zone ?','Comment change-t-il de rythme ?','Que fait-il après avoir passé ?','Son déplacement crée-t-il un espace pour un partenaire ?'],fieldMission:'Après chaque passe, recréer immédiatement une nouvelle ligne de soutien.'},
+ {id:'change-pace',icon:'⚡',category:'physique',skill:'Explosivité',title:'Changer de rythme au bon moment',focus:'Premiers appuis explosifs',duration:10,url:'https://www.youtube.com/results?search_query=football+change+of+pace+attacking+midfielder',instruction:'Observe le geste ou l’information qui déclenche l’accélération.',tags:['accélération','appuis','rythme'],questions:['Quel événement déclenche l’accélération ?','Les trois premiers appuis sont-ils courts et puissants ?','Le joueur protège-t-il le ballon pendant l’accélération ?','Quand ralentit-il de nouveau ?'],fieldMission:'Après chaque feinte réussie, accélérer franchement pendant trois appuis.'},
+ {id:'self-match',icon:'🎥',category:'auto',skill:'Vision',title:'Analyser mon propre match',focus:'Preuves personnelles',duration:20,url:'',instruction:'Choisis cinq séquences où tu reçois entre les lignes et compare tes décisions.',tags:['ma vidéo','match','auto-évaluation'],questions:['Avais-tu scanné avant la réception ?','Ton corps permettait-il de jouer vers l’avant ?','Quelle option n’as-tu pas vue ?','Quelle décision veux-tu répéter ou corriger ?'],fieldMission:'Rejouer mentalement cinq situations et définir une consigne unique pour le prochain match.'}
 ];
-
-export function videoForPlan(plan){
- const text=`${plan.kind||''} ${plan.title||''} ${(plan.blocks||[]).map(b=>b.title).join(' ')}`.toLowerCase();
- let theme='technique';
- if(/test/.test(text))theme='test';
- else if(/explos|vitesse|sprint|accél/.test(text))theme='speed';
- else if(/scan|vision/.test(text))theme='vision';
- else if(/domtac|course|endurance|récup|repos/.test(text))theme='endurance';
- else if(/contrôle|technique|ballon/.test(text))theme='control';
- return VIDEO_CATALOG.find(v=>v.themes.includes(theme))||VIDEO_CATALOG[0];
-}
+export function videoById(id){return VIDEO_CATALOG.find(v=>v.id===id)}
+export function videoForPlan(plan){const t=`${plan?.kind||''} ${plan?.title||''} ${(plan?.blocks||[]).map(b=>b.title).join(' ')}`.toLowerCase();if(/vitesse|sprint|explos|accél/.test(t))return videoById('change-pace');if(/contrôle|technique|ballon/.test(t))return videoById('body-first-touch');if(/passe|vision|scan/.test(t))return videoById('scan-playmaker');return videoById('off-ball-10')}
