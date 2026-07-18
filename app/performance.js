@@ -1,4 +1,5 @@
 import {calculateRatings,RATING_NAMES} from './ratings.js';
+import {analyzeRecovery,workloadBalance} from './recovery-intelligence.js';
 
 const iso=d=>d.toISOString().slice(0,10);
 const clamp=(n,min=0,max=100)=>Math.max(min,Math.min(max,n));
@@ -28,8 +29,10 @@ export function buildPerformance(state){
  const strongest=Object.entries(ratings.ratings).sort((a,b)=>b[1]-a[1])[0];
  const weakest=Object.entries(ratings.ratings).sort((a,b)=>a[1]-b[1])[0];
  const labels=Object.fromEntries(RATING_NAMES);
- const form=clamp(100-(weekly.at(-1)?.fatigue||0)*6-(Math.max(0,7-(weekly.at(-1)?.sleep||7.5))*8)+Math.min(12,(weekly.at(-1)?.meals||0)*.6));
- return{weekly,totalMinutes,totalLoad,avgSleep:avg(sleepAll),mealsAll,avgTech:avg(reviewTech),avgFocus:avg(focus),strongest:{key:strongest[0],label:labels[strongest[0]],value:strongest[1]},weakest:{key:weakest[0],label:labels[weakest[0]],value:weakest[1]},form:Math.round(form),ratings};
+ const recovery=analyzeRecovery(state),workload=workloadBalance(state);
+ const form=clamp(100-(weekly.at(-1)?.fatigue||0)*6-(Math.max(0,7-(weekly.at(-1)?.sleep||7.5))*8)+Math.min(12,(weekly.at(-1)?.meals||0)*.6)-(workload.ratio&&workload.ratio>1.25?8:0));
+ const consistency=Math.round((dates.filter(d=>state.checkins?.[d]).length/dates.length)*100);
+ return{weekly,totalMinutes,totalLoad,avgSleep:avg(sleepAll),mealsAll,avgTech:avg(reviewTech),avgFocus:avg(focus),strongest:{key:strongest[0],label:labels[strongest[0]],value:strongest[1]},weakest:{key:weakest[0],label:labels[weakest[0]],value:weakest[1]},form:Math.round(form),ratings,recovery,workload,consistency};
 }
 
 export function renderPerformance(root,state){
@@ -42,7 +45,7 @@ export function renderPerformance(root,state){
      <div><small>ENTRAÎNEMENT</small><strong>${Math.floor(p.totalMinutes/60)} h ${p.totalMinutes%60} min</strong><span>${Object.values(state.done||{}).filter(Boolean).length} séances validées</span></div>
      <div><small>CHARGE TOTALE</small><strong>${Math.round(p.totalLoad)}</strong><span>RPE × minutes</span></div>
      <div><small>SOMMEIL MOYEN</small><strong>${p.avgSleep?p.avgSleep.toFixed(1):'—'} h</strong><span>${p.mealsAll} repas validés</span></div>
-     <div><small>FORME ACTUELLE</small><strong>${p.form}%</strong><span>Indépendante des XP</span></div>
+     <div><small>FORME ACTUELLE</small><strong>${p.form}%</strong><span>Récupération ${p.recovery.score}/100</span></div>
    </div>
    <div class="perf-grid">
      <article class="panel perf-chart"><div class="eyebrow">SÉANCES / SEMAINE</div>${spark(sessionTrend)}<div class="perf-values">${w.map(x=>`<span>${x.sessions}</span>`).join('')}</div></article>
@@ -53,6 +56,7 @@ export function renderPerformance(root,state){
      <article class="panel"><div class="eyebrow">QUALITÉ LA PLUS FORTE</div><div class="perf-quality good"><strong>${p.strongest.value}</strong><div><b>${p.strongest.label}</b><span>Continue à l’entretenir sans négliger les autres qualités.</span></div></div></article>
      <article class="panel"><div class="eyebrow">QUALITÉ À RELANCER</div><div class="perf-quality watch"><strong>${p.weakest.value}</strong><div><b>${p.weakest.label}</b><span>Concentre-toi sur des preuves mesurables dans les prochains tests.</span></div></div></article>
    </div>
+   <article class="panel gap perf-load-alert ${p.workload.band==='ÉLEVÉE'?'danger':''}"><div class="eyebrow">CHARGE & RÉGULARITÉ</div><div class="perf-insights"><div><b>${p.workload.ratio===null?'—':p.workload.ratio}</b><span>Ratio charge 7 j / 28 j</span></div><div><b>${p.workload.band}</b><span>${p.workload.message}</span></div><div><b>${p.consistency}%</b><span>Check-ins sur 35 jours</span></div></div></article>
    <article class="panel gap"><div class="eyebrow">LECTURE RAPIDE</div><div class="perf-insights">
      <div><b>${p.avgTech?p.avgTech.toFixed(1):'—'}/10</b><span>Technique moyenne après séance</span></div>
      <div><b>${p.avgFocus?p.avgFocus.toFixed(1):'—'}/10</b><span>Concentration moyenne</span></div>

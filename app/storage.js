@@ -1,5 +1,5 @@
 const KEY='nextLevel10_2_0';
-const SCHEMA_VERSION=1;
+const SCHEMA_VERSION=3;
 
 const defaultPlayer={
   firstName:'Valentin',
@@ -24,7 +24,8 @@ const defaults={
   checkins:{},reviews:{},done:{},sessionRuns:{},nutrition:{},tests:[],pain:{},
   equipment:{},timerPreferences:{},xp:0,weather:{temp:24,humidity:50},
   notifications:{training:true,meals:true,sleep:true,lead:20,sent:{}},
-  app:{installedAt:null,lastVersion:'1.0.0',dismissedUpdates:[]}
+  app:{installedAt:null,lastVersion:'1.6.0',dismissedUpdates:[]},
+  dailyObjectives:{},achievements:[],sprintTwo:{shopping:{},lastRecoverySave:null}
 };
 
 const clone=value=>{
@@ -39,7 +40,7 @@ function migrate(raw){
     ...s,
     schemaVersion:SCHEMA_VERSION,
     player:{...clone(defaultPlayer),...(s.player||{})},
-    app:{...clone(defaults.app),...(s.app||{}),lastVersion:'1.0.0'},
+    app:{...clone(defaults.app),...(s.app||{}),lastVersion:'1.6.0'},
     checkins:s.checkins||{},
     reviews:s.reviews||{},
     done:s.done||{},
@@ -49,7 +50,10 @@ function migrate(raw){
     pain:s.pain||{},
     equipment:s.equipment||{},
     timerPreferences:s.timerPreferences||{},
-    notifications:{...clone(defaults.notifications),...(s.notifications||{})}
+    notifications:{...clone(defaults.notifications),...(s.notifications||{})},
+    dailyObjectives:s.dailyObjectives||{},
+    achievements:Array.isArray(s.achievements)?s.achievements:[],
+    sprintTwo:{...clone(defaults.sprintTwo),...(s.sprintTwo||{})}
   };
   if(!migrated.app.installedAt)migrated.app.installedAt=new Date().toISOString();
   return migrated;
@@ -77,14 +81,14 @@ export function clearState(){localStorage.removeItem(KEY)}
 export function exportState(){
   const payload={
     product:'Next Level 10',
-    version:'1.0.0',
+    version:'1.6.0',
     exportedAt:new Date().toISOString(),
     state:loadState()
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const link=document.createElement('a');
   link.href=URL.createObjectURL(blob);
-  link.download=`next_level_10_v1_${new Date().toISOString().slice(0,10)}.json`;
+  link.download=`next_level_10_v1_6_${new Date().toISOString().slice(0,10)}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
