@@ -266,3 +266,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.splash{display:none}}
 @media(max-width:920px){body{overscroll-behavior-y:none}main{padding-bottom:calc(112px + env(safe-area-inset-bottom))}.side{padding-bottom:calc(7px + env(safe-area-inset-bottom))}.toast{right:14px;bottom:calc(96px + env(safe-area-inset-bottom))}}
 @supports(padding:max(0px)){main{padding-left:max(13px,env(safe-area-inset-left));padding-right:max(13px,env(safe-area-inset-right))}}
+
+
+/* V1.6.0 — Sprint 1 Intelligence */
+.v16-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.v16-card{min-height:170px}.v16-score{display:flex;align-items:baseline;gap:4px}.v16-score strong{font-size:52px;letter-spacing:-.06em;color:var(--lime)}.v16-score span{color:#9ba39a}.v16-objectives{display:grid;gap:9px}.v16-objectives label{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px;margin:0;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.2)}.v16-objectives input{width:auto}.v16-objectives b{font-size:11px;color:var(--lime)}.v16-badges{display:flex;gap:8px;flex-wrap:wrap}.v16-badges span{padding:9px 11px;border-radius:999px;background:rgba(199,255,53,.09);border:1px solid rgba(199,255,53,.16)}@media(max-width:760px){.v16-grid{grid-template-columns:1fr}}

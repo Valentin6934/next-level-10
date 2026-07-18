@@ -1,11 +1,8 @@
-# Next Level 10 — V1.5.0
+# Next Level 10 — V1.6.0
 
-Application PWA locale de préparation football avec NOVA, planning, suivi, progression, nutrition et analyse vidéo.
+Application PWA football local-first avec NOVA.
 
-## Installation
+## Sprint 1
+Recovery Intelligence, objectifs quotidiens, nutrition personnalisée, achievements et cache hors ligne mis à jour.
 
-Servir le dossier avec un serveur HTTPS ou local, puis ouvrir `index.html`. L'installation PWA est proposée par le navigateur compatible.
-
-## Données
-
-Les données sportives restent dans le stockage local du navigateur sauf export volontaire.
+Ouvrir `index.html` via un serveur HTTP local ou déployer le contenu du dossier à la racine du site.

@@ -1,4 +1,4 @@
-const VERSION='1.5.0';
+const VERSION='1.6.0';
 const STATIC_CACHE=`nl10-static-${VERSION}`;
 const RUNTIME_CACHE=`nl10-runtime-${VERSION}`;
 const APP_SHELL=[
@@ -27,6 +27,11 @@ const APP_SHELL=[
   "./app/ratings.js",
   "./app/release.js",
   "./app/session-video.js",
+  "./app/sprint-one.js",
+  "./app/recovery-intelligence.js",
+  "./app/daily-objectives.js",
+  "./app/achievements.js",
+  "./app/nutrition-intelligence.js",
   "./app/storage.js",
   "./app/timer.js",
   "./app/video-catalog.js",

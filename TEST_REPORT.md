@@ -1,17 +1,20 @@
-# TEST REPORT — V1.5.0
+# TEST REPORT — V1.6.0 Sprint 1
 
-## Contrôles automatisés effectués
+Date : 2026-07-18
 
-- Syntaxe JavaScript vérifiée sur tous les fichiers `app/*.js` et `sw.js` avec Node.js.
-- Manifeste JSON validé.
-- Tous les fichiers référencés par le service worker sont présents.
-- Cohérence de version 1.5.0 vérifiée dans `index.html`, `app/release.js` et `sw.js`.
-- Archive ZIP testée après génération.
+## Vérifications effectuées
+- Syntaxe JavaScript validée avec `node --check` pour tous les modules `app/*.js` et `sw.js`.
+- `manifest.webmanifest` analysé avec succès comme JSON.
+- Version 1.6.0 vérifiée dans l’interface, la release et le service worker.
+- Nouveaux modules ajoutés au cache PWA.
+- Migration du stockage local vers le schéma 2 avec conservation des anciennes données.
+- Intégration du tableau Sprint 1 dans la page d’accueil.
 
-## Contrôles manuels recommandés en Preview
+## Nouveaux modules
+- `app/recovery-intelligence.js`
+- `app/daily-objectives.js`
+- `app/nutrition-intelligence.js`
+- `app/achievements.js`
+- `app/sprint-one.js`
 
-- Installation PWA sur iPhone/Android.
-- Premier lancement hors-ligne après une visite connectée.
-- Mise à jour depuis une installation V1.4.
-- Parcours NOVA, planning, séance, progression, profil et vidéo.
-- Export/import des données locales.
+Résultat : contrôles statiques réussis.

@@ -1,8 +1,10 @@
-NEXT LEVEL 10 — V1.5.0
+NEXT LEVEL 10 — V1.6.0 — SPRINT 1
 
-1. Copier le contenu du dossier sur la branche develop.
-2. Déployer une Preview Vercel.
-3. Vérifier installation, navigation, mode hors-ligne et conservation des données.
-4. Fusionner dans main après validation.
+Cette archive contient une vraie évolution de la V1.5 :
+- récupération intelligente ;
+- objectifs quotidiens ;
+- recommandations nutritionnelles ;
+- badges automatiques ;
+- PWA hors ligne mise à jour.
 
-Important : vider l'ancienne Preview si un cache V1.4 reste affiché, puis recharger une fois.
+Déployer tout le contenu à la racine du site.
