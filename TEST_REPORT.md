@@ -1,18 +1,17 @@
-# TEST REPORT — V1.1.0
+# TEST REPORT — V1.5.0
 
-## Vérifications automatiques
-- Syntaxe de tous les modules JavaScript.
-- Module NOVA Hub inclus dans le service worker.
-- Manifest PWA valide.
-- Références HTML de `main.js`.
-- Création du ZIP GitHub et de la sauvegarde complète.
+## Contrôles automatisés effectués
 
-## Recette iPhone
-1. Vérifier que les données V1.0 sont conservées.
-2. Ouvrir le bouton NOVA depuis chaque onglet.
-3. Tester les quatre raccourcis du tiroir.
-4. Enregistrer un check-in rapide.
-5. Vérifier la mise à jour du Dashboard NOVA.
-6. Activer puis désactiver le mode essentiel.
-7. Tester séance, planning, progression et profil.
-8. Fermer puis rouvrir la PWA.
+- Syntaxe JavaScript vérifiée sur tous les fichiers `app/*.js` et `sw.js` avec Node.js.
+- Manifeste JSON validé.
+- Tous les fichiers référencés par le service worker sont présents.
+- Cohérence de version 1.5.0 vérifiée dans `index.html`, `app/release.js` et `sw.js`.
+- Archive ZIP testée après génération.
+
+## Contrôles manuels recommandés en Preview
+
+- Installation PWA sur iPhone/Android.
+- Premier lancement hors-ligne après une visite connectée.
+- Mise à jour depuis une installation V1.4.
+- Parcours NOVA, planning, séance, progression, profil et vidéo.
+- Export/import des données locales.

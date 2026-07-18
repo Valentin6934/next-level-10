@@ -1,18 +1,15 @@
-# CHANGELOG — Next Level 10 V1.1.0
+# CHANGELOG — Next Level 10
 
-## NOVA Hub
-- Bouton NOVA flottant visible dans toute l’application.
-- Tiroir global avec état du jour et raccourcis.
-- Accès direct à la conversation, la séance, le planning et le profil.
-- Check-in rapide : sommeil, fatigue, motivation et douleur.
-- Réanalyse automatique après le check-in.
+## 1.5.0 — PWA Performance & Mobile
 
-## UX
-- Mode essentiel activé par défaut.
-- Blocs secondaires masqués sans supprimer les fonctions.
-- Réglage disponible dans Profil > Réglages.
-- Interface mobile renforcée.
+- Version harmonisée dans l'interface, le manifeste, le module de publication et le cache.
+- Nouveau gestionnaire PWA (`app/pwa.js`) : installation, état hors-ligne et détection des mises à jour.
+- Service worker restructuré avec caches statique et dynamique séparés.
+- Navigation hors-ligne sécurisée avec repli vers `index.html`.
+- Nettoyage automatique des anciens caches lors de l'activation.
+- Optimisations mobiles : safe areas iPhone, focus visible, réduction des animations et meilleur comportement tactile.
+- Optimisation de rendu des pages inactives avec `content-visibility`.
 
-## Données
-- Aucune migration destructive.
-- Compatibilité avec les données V1.0.
+## 1.4.0
+
+- NOVA Video Lab : catalogue, missions guidées et historique d'analyse.
